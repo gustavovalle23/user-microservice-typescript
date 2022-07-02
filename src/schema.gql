@@ -1,0 +1,15 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Query {
+  me: UserDto!
+}
+
+type UserDto {
+  birthDate: String!
+  documentNo: String!
+  id: String!
+  name: String!
+  password: String!
+}

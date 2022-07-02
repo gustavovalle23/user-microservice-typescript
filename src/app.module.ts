@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
+import { UserResolver } from './resolvers/user.resolver';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { join } from 'path';
     }),
   ],
   controllers: [],
-  providers: [],
+  providers: [UserResolver],
 })
 export class AppModule {}
