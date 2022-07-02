@@ -12,6 +12,5 @@ type UserDto {
   firstName: String!
   id: String!
   lastName: String!
-  password: String!
   username: String!
 }

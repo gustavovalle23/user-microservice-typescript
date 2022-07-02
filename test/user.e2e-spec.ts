@@ -29,7 +29,6 @@ describe('User (e2e)', () => {
               firstName
               lastName
               documentNo
-              password
               birthDate
             }
           }

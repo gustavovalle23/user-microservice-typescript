@@ -12,7 +12,6 @@ export class UserResolver {
     user.documentNo = '44444444444';
     user.firstName = 'first';
     user.lastName = 'last';
-    user.password = 'something';
     return user;
   }
 }
