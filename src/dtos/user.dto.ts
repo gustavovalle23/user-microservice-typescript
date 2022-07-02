@@ -5,7 +5,11 @@ export class UserDto {
   @Field()
   id: string;
   @Field()
-  name: string;
+  username: string;
+  @Field()
+  firstName: string;
+  @Field()
+  lastName: string;
   @Field()
   documentNo: string;
   @Field()

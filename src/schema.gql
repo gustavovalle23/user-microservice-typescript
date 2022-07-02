@@ -3,13 +3,15 @@
 # ------------------------------------------------------
 
 type Query {
-  me: UserDto!
+  user(id: String!): UserDto!
 }
 
 type UserDto {
   birthDate: String!
   documentNo: String!
+  firstName: String!
   id: String!
-  name: String!
+  lastName: String!
   password: String!
+  username: String!
 }

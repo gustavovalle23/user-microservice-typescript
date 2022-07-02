@@ -1,10 +1,18 @@
-import { Query, Resolver } from '@nestjs/graphql';
-import { UserDto } from 'src/dtos/user.dto';
+import { UserDto } from '@/dtos/user.dto';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => UserDto)
 export class UserResolver {
   @Query(() => UserDto, { nullable: false })
-  async me(): Promise<UserDto> {
-    return new UserDto();
+  async user(@Args('id') id: string): Promise<UserDto> {
+    const user = new UserDto();
+    user.id = id;
+    user.username = 'username';
+    user.birthDate = '19/10/1991';
+    user.documentNo = '44444444444';
+    user.firstName = 'first';
+    user.lastName = 'last';
+    user.password = 'something';
+    return user;
   }
 }
