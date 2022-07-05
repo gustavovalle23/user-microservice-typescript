@@ -13,7 +13,5 @@ export class UserDto {
   @Field()
   documentNo: string;
   @Field()
-  password: string;
-  @Field()
   birthDate: string;
 }
