@@ -4,12 +4,13 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
-import { UserSchema } from './infra/schemas/user.schema';
-import { UserResolver } from './resolvers/user.resolver';
-import { FindUserUseCase } from './use-cases';
+import { UsersModule } from '@/user.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.DB_CONNECTION),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
@@ -17,10 +18,9 @@ import { FindUserUseCase } from './use-cases';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/admin'),
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    UsersModule,
   ],
   controllers: [],
-  providers: [UserResolver, FindUserUseCase],
+  providers: [],
 })
 export class AppModule {}
