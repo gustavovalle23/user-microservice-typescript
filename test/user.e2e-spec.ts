@@ -4,16 +4,27 @@ import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { gql } from 'apollo-server-express';
+import { UserSeed } from './seed';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
 
+  beforeAll(async () => {
+    const seed = new UserSeed();
+    seed.insertData();
+  });
+
+  afterAll(async () => {
+    const seed = new UserSeed();
+    seed.deleteData();
+  });
+
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+    const moduleRef: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
     await app.init();
   });
 
@@ -23,7 +34,7 @@ describe('User (e2e)', () => {
       .send({
         query: print(gql`
           query {
-            user(id: "12345") {
+            user(id: "111111111111111111111111") {
               id
               username
               firstName

@@ -8,6 +8,7 @@ export class UserResolver {
 
   @Query(() => UserDto, { nullable: false })
   async user(@Args('userId') userId: string): Promise<UserDto> {
+    console.log(userId);
     return await this.findUserUseCase.perform(userId);
   }
 }
