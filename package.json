@@ -26,7 +26,6 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/graphql": "^10.0.16",
-    "@nestjs/mongoose": "^9.1.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^9.0.0",
     "apollo-server-express": "^3.9.0",

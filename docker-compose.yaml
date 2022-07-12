@@ -1,23 +1,38 @@
 version: '3'
 
 services:
-  pgsql:
-    image: postgres:alpine
-    ports:
-      - '5432:5432'
-    container_name: 'pgsql'
-    restart: always
-    volumes:
-      - pg-data:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
     environment:
-      POSTGRES_USER: pguser
-      POSTGRES_PASSWORD: pgpassword
+      - PORT=3000
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PW=crudjs
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - DB_USER=postgres
+      - DB_PASS=crudjs
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
-
-volumes:
-  pg-data:

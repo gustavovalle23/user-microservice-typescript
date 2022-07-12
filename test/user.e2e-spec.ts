@@ -4,20 +4,9 @@ import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { gql } from 'apollo-server-express';
-import { UserSeed } from './seed';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
-
-  beforeAll(async () => {
-    const seed = new UserSeed();
-    seed.insertData();
-  });
-
-  afterAll(async () => {
-    const seed = new UserSeed();
-    seed.deleteData();
-  });
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({

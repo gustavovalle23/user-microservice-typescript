@@ -9,8 +9,8 @@ type Query {
 type UserDto {
   birthDate: String!
   documentNo: String!
-  firstName: String!
+  email: String!
   id: String!
-  lastName: String!
-  username: String!
+  name: String!
+  status: Boolean!
 }
