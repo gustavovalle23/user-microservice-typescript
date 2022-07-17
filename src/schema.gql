@@ -8,6 +8,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
+  allUsers: [UserDto!]
   user(userId: String!): UserDto
 }
 
@@ -16,6 +17,6 @@ type UserDto {
   documentNo: String!
   email: String!
   id: String!
+  isActive: Boolean
   name: String!
-  status: Boolean
 }

@@ -9,7 +9,7 @@ export class UserDto {
   @Field()
   name: string;
   @Field({ defaultValue: true, nullable: true })
-  status?: boolean;
+  isActive?: boolean;
   @Field()
   documentNo: string;
   @Field()
