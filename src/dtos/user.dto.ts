@@ -8,10 +8,10 @@ export class UserDto {
   email: string;
   @Field()
   name: string;
-  @Field()
-  status: boolean;
+  @Field({ defaultValue: true, nullable: true })
+  status?: boolean;
   @Field()
   documentNo: string;
   @Field()
-  birthDate: string;
+  birthDate: Date;
 }
