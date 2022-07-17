@@ -2,15 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
-  user(userId: String!): UserDto!
+  user(userId: String!): UserDto
 }
 
 type UserDto {
-  birthDate: String!
+  birthDate: DateTime!
   documentNo: String!
   email: String!
   id: String!
   name: String!
-  status: Boolean!
+  status: Boolean
 }

@@ -11,7 +11,7 @@ import {
 @Entity()
 @Unique(['email'])
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column({ nullable: false, type: 'varchar', length: 200 })
@@ -28,6 +28,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: false })
   documentNo: string;
+
+  @Column({ nullable: true })
+  status: boolean;
 
   @Column({ nullable: false })
   birthDate: Date;

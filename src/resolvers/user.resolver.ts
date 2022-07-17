@@ -6,7 +6,7 @@ import { Args, Query, Resolver } from '@nestjs/graphql';
 export class UserResolver {
   constructor(private readonly findUserUseCase: FindUserUseCase) {}
 
-  @Query(() => UserDto, { nullable: false })
+  @Query(() => UserDto, { nullable: true })
   async user(@Args('userId') userId: string): Promise<UserDto> {
     return await this.findUserUseCase.perform(userId);
   }
