@@ -23,11 +23,11 @@ describe('User (e2e)', () => {
       .send({
         query: print(gql`
           query {
-            user(id: "111111111111111111111111") {
+            user(userId: "1") {
               id
-              username
-              firstName
-              lastName
+              email
+              name
+              isActive
               documentNo
               birthDate
             }
@@ -35,6 +35,7 @@ describe('User (e2e)', () => {
         `),
       })
       .expect(({ body }) => {
+        expect(body.errors).toBeUndefined();
         expect(body.data?.user).toMatchSnapshot();
       });
     expect(true).toBe(true);
