@@ -29,9 +29,6 @@ export class User extends BaseEntity {
   @Column({ nullable: false })
   documentNo: string;
 
-  @Column({ nullable: true })
-  status: boolean;
-
   @Column({ nullable: false })
   birthDate: Date;
 
