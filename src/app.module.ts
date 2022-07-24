@@ -4,12 +4,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { UsersModule } from '@/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig, graphqlConfig } from '@/infra/config';
+import { graphqlConfig } from '@/infra/config';
+import { getEnvPath } from '@/common';
+import { TypeOrmConfigService } from '@/infra/shared/typeorm';
+
+const envFilePath: string = getEnvPath(`${__dirname}`);
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeOrmConfig),
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     GraphQLModule.forRoot<ApolloDriverConfig>(graphqlConfig),
     UsersModule,
   ],
