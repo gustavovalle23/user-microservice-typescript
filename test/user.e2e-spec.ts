@@ -40,21 +40,53 @@ describe('User (e2e)', () => {
       .send({
         query: print(gql`
           query {
-            user(userId: "1") {
-              id
-              email
-              name
-              isActive
-              documentNo
-              birthDate
+            findUserById(data: { userId: "1" }) {
+              user {
+                id
+                email
+                name
+                isActive
+                documentNo
+                birthDate
+              }
             }
           }
         `),
       })
       .expect(({ body }) => {
         expect(body.errors).toBeUndefined();
-        expect(body.data?.user).toMatchSnapshot();
+        expect(body.data?.findUserById?.user).toMatchSnapshot();
       });
-    expect(true).toBe(true);
+  });
+
+  it('Should return an error when send a invalid user id', async () => {
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(gql`
+          query {
+            findUserById(data: { userId: "2" }) {
+              user {
+                id
+                email
+                name
+                isActive
+                documentNo
+                birthDate
+              }
+            }
+          }
+        `),
+      })
+      .expect(({ body }) => {
+        console.log(body.errors[0]);
+        expect(body.errors).toBeDefined();
+        expect(body.errors[0]).toMatchObject({
+          message: 'User not found with id 2',
+          extensions: {
+            exception: { name: 'UserNotFound' },
+          },
+        });
+      });
   });
 });

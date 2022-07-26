@@ -20,13 +20,21 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input FindUserByIdInput {
+  userId: String!
+}
+
+type FindUserByIdResponse {
+  user: User!
+}
+
 type Mutation {
   createUser(user: CreateUserInput!): CreateUserResponse
 }
 
 type Query {
   allUsers: [User!]
-  user(userId: String!): User
+  findUserById(data: FindUserByIdInput!): FindUserByIdResponse
 }
 
 type User {

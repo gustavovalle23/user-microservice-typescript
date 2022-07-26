@@ -49,3 +49,15 @@ export class CreateUserResponse {
   @Field(() => UserDto, { nullable: false })
   user: UserDto;
 }
+
+@ObjectType()
+export class FindUserByIdResponse {
+  @Field(() => UserDto, { nullable: false })
+  user: UserDto;
+}
+
+@InputType()
+export class FindUserByIdInput {
+  @Field({ nullable: false })
+  userId: string;
+}

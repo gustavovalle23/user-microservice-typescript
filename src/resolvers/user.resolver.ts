@@ -1,4 +1,10 @@
-import { CreateUserInput, CreateUserResponse, UserDto } from '@/dtos/user.dto';
+import {
+  CreateUserInput,
+  CreateUserResponse,
+  FindUserByIdInput,
+  FindUserByIdResponse,
+  UserDto,
+} from '@/dtos/user.dto';
 import {
   CreateUserUseCase,
   FindAllUsersUseCase,
@@ -14,9 +20,11 @@ export class UserResolver {
     private readonly createUserUseCase: CreateUserUseCase,
   ) {}
 
-  @Query(() => UserDto, { nullable: true })
-  async user(@Args('userId') userId: string): Promise<UserDto> {
-    return await this.findUserUseCase.perform(userId);
+  @Query(() => FindUserByIdResponse, { nullable: true })
+  async findUserById(
+    @Args('data') { userId }: FindUserByIdInput,
+  ): Promise<FindUserByIdResponse> {
+    return await this.findUserUseCase.perform({ userId });
   }
 
   @Query(() => [UserDto], { nullable: true })
