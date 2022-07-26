@@ -922,7 +922,7 @@
 
 "@nestjs/typeorm@^9.0.0":
   version "9.0.0"
-  resolved "https://registry.npmjs.org/@nestjs/typeorm/-/typeorm-9.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-9.0.0.tgz#dea9e5ba006dc06911712660d8aa0787b7791652"
   integrity sha512-pTH9ZlngObaPlt7//CY2lSb+3ouFczUQJln1ctXIpGwZdY3QBrwsxF3hnJXsCYNa+IPfz27qJUeoAQmp65kGZw==
   dependencies:
     uuid "8.3.2"
@@ -5383,7 +5383,7 @@ typedarray@^0.0.6:
 
 typeorm@^0.3.7:
   version "0.3.7"
-  resolved "https://registry.npmjs.org/typeorm/-/typeorm-0.3.7.tgz"
+  resolved "https://registry.yarnpkg.com/typeorm/-/typeorm-0.3.7.tgz#5776ed5058f0acb75d64723b39ff458d21de64c1"
   integrity sha512-MsPJeP6Zuwfe64c++l80+VRqpGEGxf0CkztIEnehQ+CMmQPSHjOnFbFxwBuZ2jiLqZTjLk2ZqQdVF0RmvxNF3Q==
   dependencies:
     "@sqltools/formatter" "^1.2.2"
