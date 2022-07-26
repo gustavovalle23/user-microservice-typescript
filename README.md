@@ -7,8 +7,12 @@
 * Find all users registered
 * Find all user by id
 
+## Build Setup Docker
+```console
+user@project:~$ docker-compose build --no-cache && docker-compose up
+```
 
-## Build Setup
+## Build Setup Local
 ```
 # install dependencies
 yarn install
