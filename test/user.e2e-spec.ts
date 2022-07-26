@@ -2,18 +2,35 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
 import { gql } from 'apollo-server-express';
+import { UsersModule } from '@/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriverConfig } from '@nestjs/apollo';
+import { graphqlConfig } from '@/infra/config';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
-    const moduleRef: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+  beforeAll(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [
+        TypeOrmModule.forRoot({
+          type: 'postgres',
+          host: 'localhost',
+          port: 5432,
+          username: 'pguser',
+          password: 'pgpassword',
+          database: 'financial',
+          autoLoadEntities: true,
+          synchronize: true,
+        }),
+        GraphQLModule.forRoot<ApolloDriverConfig>(graphqlConfig),
+        UsersModule,
+      ],
     }).compile();
 
-    app = moduleRef.createNestApplication();
+    app = moduleFixture.createNestApplication();
     await app.init();
   });
 
