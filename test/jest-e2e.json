@@ -13,6 +13,7 @@
 	"collectCoverageFrom": [
 	  "src/**/**",
 	  "!src/**/index.ts",
-	  "!src/**/main.ts"
+	  "!src/**/main.ts",
+	  "!src/common/env.helper.ts"
 	]
   }

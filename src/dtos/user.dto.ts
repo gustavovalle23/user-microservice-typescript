@@ -61,3 +61,9 @@ export class FindUserByIdInput {
   @Field({ nullable: false })
   userId: string;
 }
+
+@ObjectType()
+export class AllUsersResponse {
+  @Field(() => [UserDto], { nullable: false })
+  users: UserDto[];
+}

@@ -11,8 +11,9 @@ import { graphqlConfig } from '@/infra/config';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
+  let server;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot({
@@ -32,10 +33,16 @@ describe('User (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+    server = app.getHttpServer();
+  });
+
+  afterEach(async () => {
+    await app.close();
+    await server.close();
   });
 
   it('Should return a user', async () => {
-    await request(app.getHttpServer())
+    await request(server)
       .post('/graphql')
       .send({
         query: print(gql`
@@ -60,7 +67,7 @@ describe('User (e2e)', () => {
   });
 
   it('Should return an error when send a invalid user id', async () => {
-    await request(app.getHttpServer())
+    await request(server)
       .post('/graphql')
       .send({
         query: print(gql`

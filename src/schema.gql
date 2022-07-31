@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AllUsersResponse {
+  users: [User!]!
+}
+
 input CreateUserInput {
   birthDate: DateTime!
   documentNo: String!
@@ -33,7 +37,7 @@ type Mutation {
 }
 
 type Query {
-  allUsers: [User!]
+  allUsers: AllUsersResponse
   findUserById(data: FindUserByIdInput!): FindUserByIdResponse
 }
 

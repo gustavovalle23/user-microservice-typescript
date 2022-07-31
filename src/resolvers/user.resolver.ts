@@ -1,4 +1,5 @@
 import {
+  AllUsersResponse,
   CreateUserInput,
   CreateUserResponse,
   FindUserByIdInput,
@@ -27,8 +28,8 @@ export class UserResolver {
     return await this.findUserUseCase.perform({ userId });
   }
 
-  @Query(() => [UserDto], { nullable: true })
-  async allUsers(): Promise<UserDto[]> {
+  @Query(() => AllUsersResponse, { nullable: true })
+  async allUsers(): Promise<AllUsersResponse> {
     return await this.findAllUserUseCase.perform();
   }
 
