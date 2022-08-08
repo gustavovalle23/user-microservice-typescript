@@ -2,17 +2,46 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AllUsersResponse {
+  users: [User!]!
+}
+
+input CreateUserInput {
+  birthDate: DateTime!
+  documentNo: String!
+  email: String!
+  isActive: Boolean!
+  name: String!
+  password: String!
+}
+
+type CreateUserResponse {
+  user: User!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
-type Query {
-  allUsers: [UserDto!]
-  user(userId: String!): UserDto
+input FindUserByIdInput {
+  userId: String!
 }
 
-type UserDto {
+type FindUserByIdResponse {
+  user: User!
+}
+
+type Mutation {
+  createUser(user: CreateUserInput!): CreateUserResponse
+}
+
+type Query {
+  allUsers: AllUsersResponse
+  findUserById(data: FindUserByIdInput!): FindUserByIdResponse
+}
+
+type User {
   birthDate: DateTime!
   documentNo: String!
   email: String!
