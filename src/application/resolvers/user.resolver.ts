@@ -5,12 +5,12 @@ import {
   FindUserByIdInput,
   FindUserByIdResponse,
   UserDto,
-} from '@/dtos/user.dto';
+} from '@/domain/dtos/user.dto';
 import {
   CreateUserUseCase,
   FindAllUsersUseCase,
   FindUserUseCase,
-} from '@/use-cases';
+} from '@/domain/use-cases';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => UserDto)

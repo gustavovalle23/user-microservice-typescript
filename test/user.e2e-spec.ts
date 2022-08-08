@@ -3,11 +3,11 @@ import { INestApplication } from '@nestjs/common';
 import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
 import { gql } from 'apollo-server-express';
-import { UsersModule } from '@/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { graphqlConfig } from '@/infra/config';
+import { UsersModule } from '@/infra/modules';
 
 describe('User (e2e)', () => {
   let app: INestApplication;

@@ -1,4 +1,4 @@
-import { AllUsersResponse } from '@/dtos';
+import { AllUsersResponse } from '@/domain/dtos';
 import { UserRepository } from '@/infra/repositories';
 import { Injectable } from '@nestjs/common';
 

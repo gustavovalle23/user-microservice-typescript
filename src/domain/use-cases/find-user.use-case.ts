@@ -1,5 +1,5 @@
-import { FindUserByIdInput, FindUserByIdResponse } from '@/dtos';
-import { UserNotFoundError } from '@/infra/errors';
+import { FindUserByIdInput, FindUserByIdResponse } from '@/domain/dtos';
+import { UserNotFoundError } from '@/application/errors';
 import { UserRepository } from '@/infra/repositories';
 import { Injectable } from '@nestjs/common';
 

@@ -1,4 +1,4 @@
-import { CreateUserInput, CreateUserResponse } from '@/dtos';
+import { CreateUserInput, CreateUserResponse } from '@/domain/dtos';
 import { UserRepository } from '@/infra/repositories';
 
 export class CreateUserUseCase {

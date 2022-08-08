@@ -4,10 +4,10 @@ import {
   CreateUserUseCase,
   FindAllUsersUseCase,
   FindUserUseCase,
-} from '@/use-cases';
-import { UserResolver } from '@/resolvers';
+} from '@/domain/use-cases';
+import { UserResolver } from '@/application/resolvers';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository } from './infra/repositories';
+import { UserRepository } from '../repositories';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
