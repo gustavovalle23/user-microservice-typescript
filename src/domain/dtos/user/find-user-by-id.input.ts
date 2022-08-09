@@ -1,6 +1,6 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { ArgsType, Field } from '@nestjs/graphql';
 
-@InputType()
+@ArgsType()
 export class FindUserByIdInput {
   @Field({ nullable: false })
   userId: string;

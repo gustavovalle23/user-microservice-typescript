@@ -21,14 +21,11 @@ export class UserResolver {
     private readonly createUserUseCase: CreateUserUseCase,
   ) {}
 
-  @Query(() => FindUserByIdResponse, { nullable: true })
+  @Query(() => FindUserByIdResponse, { nullable: false })
   async findUserById(
-    @Args('data') { userId }: FindUserByIdInput,
+    @Args({ nullable: false }) { userId }: FindUserByIdInput,
   ): Promise<FindUserByIdResponse> {
-    console.log(userId);
-    return await this.findUserUseCase.perform({
-      userId,
-    });
+    return this.findUserUseCase.perform({ userId });
   }
 
   @Query(() => FindAllUsersResponse, { nullable: true })
