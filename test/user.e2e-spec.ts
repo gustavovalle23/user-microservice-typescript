@@ -3,10 +3,6 @@ import { INestApplication } from '@nestjs/common';
 import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
 import { gql } from 'apollo-server-express';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriverConfig } from '@nestjs/apollo';
-import { graphqlConfig } from '@/infra/config';
 import { UsersModule } from '@/infra/modules';
 
 describe('User (e2e)', () => {
@@ -15,20 +11,7 @@ describe('User (e2e)', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: 'localhost',
-          port: 5432,
-          username: 'pguser',
-          password: 'pgpassword',
-          database: 'financial',
-          autoLoadEntities: true,
-          synchronize: true,
-        }),
-        GraphQLModule.forRoot<ApolloDriverConfig>(graphqlConfig),
-        UsersModule,
-      ],
+      imports: [UsersModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

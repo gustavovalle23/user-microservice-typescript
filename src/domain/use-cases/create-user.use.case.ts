@@ -1,10 +1,17 @@
 import { CreateUserInput, CreateUserResponse } from '@/domain/dtos';
-import { UserRepository } from '@/infra/repositories';
+import { Inject } from '@nestjs/common';
+import { CreateUser, FindUserById } from '@/domain/contracts/repo';
 
 export class CreateUserUseCase {
-  constructor(private readonly userRepo: UserRepository) {}
+  constructor(
+    @Inject('UserRepo')
+    private readonly userRepo: CreateUser & FindUserById,
+  ) {}
 
-  async perform(user: CreateUserInput): Promise<CreateUserResponse> {
-    return this.userRepo.createUser(user);
+  async perform(createUserInput: CreateUserInput): Promise<CreateUserResponse> {
+    const { id } = await this.userRepo.createUser(createUserInput);
+    return await this.userRepo.findUserById({
+      userId: id,
+    });
   }
 }

@@ -1,11 +1,11 @@
 import {
-  AllUsersResponse,
+  FindAllUsersResponse,
   CreateUserInput,
   CreateUserResponse,
   FindUserByIdInput,
   FindUserByIdResponse,
-  UserDto,
-} from '@/domain/dtos/user.dto';
+  User,
+} from '@/domain/dtos/';
 import {
   CreateUserUseCase,
   FindAllUsersUseCase,
@@ -13,7 +13,7 @@ import {
 } from '@/domain/use-cases';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-@Resolver(() => UserDto)
+@Resolver(() => User)
 export class UserResolver {
   constructor(
     private readonly findUserUseCase: FindUserUseCase,
@@ -25,11 +25,14 @@ export class UserResolver {
   async findUserById(
     @Args('data') { userId }: FindUserByIdInput,
   ): Promise<FindUserByIdResponse> {
-    return await this.findUserUseCase.perform({ userId });
+    console.log(userId);
+    return await this.findUserUseCase.perform({
+      userId,
+    });
   }
 
-  @Query(() => AllUsersResponse, { nullable: true })
-  async allUsers(): Promise<AllUsersResponse> {
+  @Query(() => FindAllUsersResponse, { nullable: true })
+  async allUsers(): Promise<FindAllUsersResponse> {
     return await this.findAllUserUseCase.perform();
   }
 

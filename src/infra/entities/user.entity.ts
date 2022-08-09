@@ -1,40 +1,35 @@
-import {
-  BaseEntity,
-  Entity,
-  Unique,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Schema as MongooseSchema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Entity()
-@Unique(['email'])
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: string;
+export type UserDocument = User & Document;
 
-  @Column({ nullable: false, type: 'varchar', length: 200 })
-  email: string;
-
-  @Column({ nullable: false, type: 'varchar', length: 200 })
+@Schema({ collection: 'users' })
+@ObjectType()
+export class User {
+  @Field(() => String)
+  _id: MongooseSchema.Types.ObjectId;
+  @Prop()
+  @Field(() => String)
   name: string;
-
-  @Column({ nullable: false, default: true })
+  @Prop()
+  @Field(() => String)
+  email: string;
+  @Prop()
+  @Field(() => String)
+  role: string;
+  @Prop()
+  @Field(() => Boolean)
   isActive: boolean;
-
-  @Column({ nullable: false })
-  password: string;
-
-  @Column({ nullable: false })
+  @Prop()
+  @Field(() => String)
   documentNo: string;
-
-  @Column({ nullable: false })
+  @Prop()
+  @Field(() => String)
+  password: string;
+  @Prop()
+  @Field(() => Date)
   birthDate: Date;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,15 +1,20 @@
 import { FindUserByIdInput, FindUserByIdResponse } from '@/domain/dtos';
 import { UserNotFoundError } from '@/application/errors';
-import { UserRepository } from '@/infra/repositories';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { FindUserById } from '@/domain/contracts/repo';
 
 @Injectable()
 export class FindUserUseCase {
-  constructor(private readonly userRepo: UserRepository) {}
-
+  constructor(
+    @Inject('UserRepo')
+    private readonly userRepo: FindUserById,
+  ) {}
   async perform({ userId }: FindUserByIdInput): Promise<FindUserByIdResponse> {
-    const user = await this.userRepo.findOne(userId);
-    if (!user) throw new UserNotFoundError(userId);
+    const result = await this.userRepo.findUserById({
+      userId,
+    });
+    if (!result) throw new UserNotFoundError(userId);
+    const { user } = result;
     return { user };
   }
 }
