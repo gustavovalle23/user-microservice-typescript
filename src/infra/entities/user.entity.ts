@@ -2,8 +2,6 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Schema as MongooseSchema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type UserDocument = User & Document;
-
 @Schema({ collection: 'users' })
 @ObjectType()
 export class User {

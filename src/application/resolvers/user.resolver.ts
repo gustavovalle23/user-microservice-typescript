@@ -2,7 +2,6 @@ import {
   FindAllUsersResponse,
   CreateUserInput,
   CreateUserResponse,
-  FindUserByIdInput,
   FindUserByIdResponse,
   User,
 } from '@/domain/dtos/';
@@ -23,14 +22,18 @@ export class UserResolver {
 
   @Query(() => FindUserByIdResponse, { nullable: false })
   async findUserById(
-    @Args({ nullable: false }) { userId }: FindUserByIdInput,
+    @Args('id', { nullable: false })
+    id: string,
   ): Promise<FindUserByIdResponse> {
-    return this.findUserUseCase.perform({ userId });
+    return await this.findUserUseCase.perform({ userId: id });
   }
 
   @Query(() => FindAllUsersResponse, { nullable: true })
   async allUsers(): Promise<FindAllUsersResponse> {
-    return await this.findAllUserUseCase.perform();
+    const { users } = await this.findAllUserUseCase.perform();
+    return {
+      users,
+    };
   }
 
   @Mutation(() => CreateUserResponse, { nullable: true })

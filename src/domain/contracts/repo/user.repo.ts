@@ -1,9 +1,4 @@
-import {
-  CreateUserInput,
-  FindAllUsersResponse,
-  FindUserByIdInput,
-  FindUserByIdResponse,
-} from '@/domain/dtos';
+import { CreateUserInput, FindUserByIdArgs, User } from '@/domain/dtos';
 
 export namespace CreateUser {
   export type Input = CreateUserInput;
@@ -15,8 +10,8 @@ export interface CreateUser {
 }
 
 export namespace FindUserById {
-  export type Input = FindUserByIdInput;
-  export type Output = FindUserByIdResponse;
+  export type Input = FindUserByIdArgs;
+  export type Output = User;
 }
 
 export interface FindUserById {
@@ -25,7 +20,7 @@ export interface FindUserById {
 
 export namespace FindAllUsers {
   export type Input = void;
-  export type Output = FindAllUsersResponse;
+  export type Output = User[];
 }
 
 export interface FindAllUsers {

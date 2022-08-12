@@ -6,7 +6,7 @@ import {
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from '@/infra/entities';
+import { User } from '@/infra/entities';
 
 type CreateUserInput = CreateUser.Input;
 type CreateUserOutput = CreateUser.Output;
@@ -18,7 +18,7 @@ Injectable();
 export class UserRepo implements CreateUser, FindUserById, FindAllUsers {
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<UserDocument>,
+    private readonly userModel: Model<User>,
   ) {}
 
   async createUser(user: CreateUserInput): Promise<CreateUserOutput> {
@@ -29,11 +29,14 @@ export class UserRepo implements CreateUser, FindUserById, FindAllUsers {
   async findUserById({
     userId,
   }: FindUserByIdInput): Promise<FindUserByIdOutput> {
-    return await this.userModel.findById(userId);
+    return await this.userModel.findOne({
+      _id: userId,
+    });
   }
 
   async findAllUsers(): Promise<FindAllUsersOutput> {
     const users = await this.userModel.find().exec();
-    return { users };
+    console.log(users);
+    return [];
   }
 }

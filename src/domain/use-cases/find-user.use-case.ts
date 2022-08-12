@@ -1,7 +1,15 @@
-import { FindUserByIdInput, FindUserByIdResponse } from '@/domain/dtos';
+import { User } from '@/domain/dtos';
 import { UserNotFoundError } from '@/application/errors';
 import { Inject, Injectable } from '@nestjs/common';
 import { FindUserById } from '@/domain/contracts/repo';
+
+type Input = {
+  userId: string;
+};
+
+type Output = {
+  user: User;
+};
 
 @Injectable()
 export class FindUserUseCase {
@@ -9,12 +17,13 @@ export class FindUserUseCase {
     @Inject('UserRepo')
     private readonly userRepo: FindUserById,
   ) {}
-  async perform({ userId }: FindUserByIdInput): Promise<FindUserByIdResponse> {
-    const result = await this.userRepo.findUserById({
+  async perform({ userId }: Input): Promise<Output> {
+    const user = await this.userRepo.findUserById({
       userId,
     });
-    if (!result) throw new UserNotFoundError(userId);
-    const { user } = result;
-    return { user };
+    if (!user) throw new UserNotFoundError(userId);
+    return {
+      user,
+    };
   }
 }
