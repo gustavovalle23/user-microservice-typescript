@@ -3,56 +3,36 @@ import { INestApplication } from '@nestjs/common';
 import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
 import { gql } from 'apollo-server-express';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriverConfig } from '@nestjs/apollo';
-import { graphqlConfig } from '@/infra/config';
-import { UsersModule } from '@/infra/modules';
+import { AppModule } from '@/infra/modules';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
-  let server;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRoot({
-          type: 'postgres',
-          host: 'localhost',
-          port: 5432,
-          username: 'pguser',
-          password: 'pgpassword',
-          database: 'financial',
-          autoLoadEntities: true,
-          synchronize: true,
-        }),
-        GraphQLModule.forRoot<ApolloDriverConfig>(graphqlConfig),
-        UsersModule,
-      ],
+      imports: [AppModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
-    server = app.getHttpServer();
   });
 
   afterEach(async () => {
     await app.close();
-    await server.close();
   });
 
   it('Should return a user', async () => {
-    await request(server)
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: print(gql`
-          query {
-            findUserById(data: { userId: "1" }) {
+          query FindUserById {
+            findUserById(id: "62f5b071f6d8335216f12df2") {
               user {
                 id
-                email
                 name
                 isActive
+                email
                 documentNo
                 birthDate
               }
@@ -67,17 +47,17 @@ describe('User (e2e)', () => {
   });
 
   it('Should return an error when send a invalid user id', async () => {
-    await request(server)
+    await request(app.getHttpServer())
       .post('/graphql')
       .send({
         query: print(gql`
-          query {
-            findUserById(data: { userId: "2" }) {
+          query FindUserById {
+            findUserById(id: "62f5b071f6d8335216f12df1") {
               user {
                 id
-                email
                 name
                 isActive
+                email
                 documentNo
                 birthDate
               }
@@ -86,14 +66,72 @@ describe('User (e2e)', () => {
         `),
       })
       .expect(({ body }) => {
-        console.log(body.errors[0]);
         expect(body.errors).toBeDefined();
         expect(body.errors[0]).toMatchObject({
-          message: 'User not found with id 2',
+          message: 'User not found with id 62f5b071f6d8335216f12df1',
           extensions: {
             exception: { name: 'UserNotFound' },
           },
         });
+      });
+  });
+
+  it('Should return all users', async () => {
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(gql`
+          query AllUsers {
+            allUsers {
+              users {
+                id
+                name
+                isActive
+                email
+                documentNo
+                birthDate
+              }
+            }
+          }
+        `),
+      })
+      .expect(({ body }) => {
+        expect(body.errors).toBeUndefined();
+        expect(body.data?.allUsers).toMatchSnapshot();
+      });
+  });
+
+  it('Should create a user', async () => {
+    await request(app.getHttpServer())
+      .post('/graphql')
+      .send({
+        query: print(gql`
+          mutation Mutation {
+            createUser(
+              user: {
+                birthDate: "1999-06-26"
+                documentNo: "44744675822"
+                email: "gustavo.vallerp@hotmail.com"
+                isActive: true
+                name: "Gusta"
+                password: "123456"
+              }
+            ) {
+              user {
+                id
+                name
+                isActive
+                email
+                documentNo
+                birthDate
+              }
+            }
+          }
+        `),
+      })
+      .expect(({ body }) => {
+        expect(body.errors).toBeUndefined();
+        expect(body.data?.allUsers).toMatchSnapshot();
       });
   });
 });

@@ -40,14 +40,31 @@ query {
 ```
 
 ```js
-query($userId: String!) {
-  user(userId: $userId) {
-    birthDate
-    documentNo
-    email
-    id
-    name
-    isActive
+query FindUserById($findUserByIdId: String!) {
+  findUserById(id: $findUserByIdId) {
+    user {
+      id
+      isActive
+      name
+      email
+      documentNo
+      birthDate
+    }
+  }
+}
+```
+
+```js
+mutation Mutation($user: CreateUserInput!) {
+  createUser(user: $user) {
+    user {
+      id
+      isActive
+      name
+      email
+      documentNo
+      birthDate
+    }
   }
 }
 ```

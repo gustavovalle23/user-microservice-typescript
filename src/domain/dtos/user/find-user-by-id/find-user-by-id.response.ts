@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { UserDto } from './user.dto';
+import { User } from '@/domain/dtos';
 
 @ObjectType()
 export class FindUserByIdResponse {
-  @Field(() => UserDto, { nullable: false })
-  user: UserDto;
+  @Field(() => User, { nullable: false })
+  user: User;
 }

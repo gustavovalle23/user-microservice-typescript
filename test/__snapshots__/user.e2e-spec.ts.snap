@@ -1,12 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`User (e2e) Should create a user 1`] = `undefined`;
+
 exports[`User (e2e) Should return a user 1`] = `
 Object {
-  "birthDate": "2022-07-17T21:18:37.789Z",
-  "documentNo": "1111111111",
-  "email": "example@example.com",
-  "id": "1",
+  "birthDate": "1999-06-26T00:00:00.000Z",
+  "documentNo": "44744675822",
+  "email": "gustavo.vallerp@hotmail.com",
+  "id": "62f5b071f6d8335216f12df2",
   "isActive": true,
-  "name": "Test",
+  "name": "Gusta",
+}
+`;
+
+exports[`User (e2e) Should return all users 1`] = `
+Object {
+  "users": Array [],
 }
 `;

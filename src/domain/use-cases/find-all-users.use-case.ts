@@ -1,12 +1,21 @@
-import { AllUsersResponse } from '@/domain/dtos';
-import { UserRepository } from '@/infra/repositories';
-import { Injectable } from '@nestjs/common';
+import { User } from '@/domain/dtos';
+import { Inject, Injectable } from '@nestjs/common';
+import { FindAllUsers } from '@/domain/contracts/repo';
+
+type Output = {
+  users?: User[];
+};
 
 @Injectable()
 export class FindAllUsersUseCase {
-  constructor(private readonly userRepo: UserRepository) {}
-
-  async perform(): Promise<AllUsersResponse> {
-    return this.userRepo.findAll();
+  constructor(
+    @Inject('UserRepo')
+    private readonly userRepo: FindAllUsers,
+  ) {}
+  async perform(): Promise<Output> {
+    const users = await this.userRepo.findAllUsers();
+    return {
+      users,
+    };
   }
 }

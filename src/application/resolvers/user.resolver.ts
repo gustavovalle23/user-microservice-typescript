@@ -1,11 +1,9 @@
 import {
-  AllUsersResponse,
   CreateUserInput,
   CreateUserResponse,
-  FindUserByIdInput,
   FindUserByIdResponse,
-  UserDto,
-} from '@/domain/dtos/user.dto';
+  User,
+} from '@/domain/dtos/';
 import {
   CreateUserUseCase,
   FindAllUsersUseCase,
@@ -13,7 +11,7 @@ import {
 } from '@/domain/use-cases';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
-@Resolver(() => UserDto)
+@Resolver(() => User)
 export class UserResolver {
   constructor(
     private readonly findUserUseCase: FindUserUseCase,
@@ -21,22 +19,29 @@ export class UserResolver {
     private readonly createUserUseCase: CreateUserUseCase,
   ) {}
 
-  @Query(() => FindUserByIdResponse, { nullable: true })
+  @Query(() => FindUserByIdResponse, { nullable: false })
   async findUserById(
-    @Args('data') { userId }: FindUserByIdInput,
+    @Args('id', { nullable: false })
+    id: string,
   ): Promise<FindUserByIdResponse> {
-    return await this.findUserUseCase.perform({ userId });
+    return await this.findUserUseCase.perform({ userId: id });
   }
 
-  @Query(() => AllUsersResponse, { nullable: true })
-  async allUsers(): Promise<AllUsersResponse> {
-    return await this.findAllUserUseCase.perform();
+  @Query(() => [User], { nullable: false })
+  async allUsers(): Promise<User[]> {
+    const { users } = await this.findAllUserUseCase.perform();
+    return users;
   }
 
-  @Mutation(() => CreateUserResponse, { nullable: true })
+  @Mutation(() => CreateUserResponse, { nullable: false })
   async createUser(
     @Args('user') user: CreateUserInput,
   ): Promise<CreateUserResponse> {
     return await this.createUserUseCase.perform(user);
   }
+
+  //   @Mutation(() => LoginResponse, { nullable: false })
+  //   async login(@Args('user') user: LoginInput): Promise<LoginResponse> {
+  //     return user;
+  //   }
 }

@@ -1,16 +1,23 @@
 import { Module } from '@nestjs/common';
-import { User } from '@/infra/entities';
 import {
   CreateUserUseCase,
   FindAllUsersUseCase,
   FindUserUseCase,
 } from '@/domain/use-cases';
 import { UserResolver } from '@/application/resolvers';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository } from '../repositories';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from '@/infra/entities';
+import { UserRepo } from '@/infra/repositories';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
+  ],
   providers: [
     // Resolvers
     UserResolver,
@@ -21,7 +28,10 @@ import { UserRepository } from '../repositories';
     CreateUserUseCase,
 
     // Repositories
-    UserRepository,
+    {
+      provide: 'UserRepo',
+      useClass: UserRepo,
+    },
   ],
 })
 export class UsersModule {}
