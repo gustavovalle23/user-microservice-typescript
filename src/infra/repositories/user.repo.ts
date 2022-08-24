@@ -36,7 +36,6 @@ export class UserRepo implements CreateUser, FindUserById, FindAllUsers {
 
   async findAllUsers(): Promise<FindAllUsersOutput> {
     const users = await this.userModel.find().exec();
-    console.log(users);
-    return [];
+    return users;
   }
 }

@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from './user.dto';
+import { User } from '@/domain/dtos';
 
 @ObjectType()
-export class FindUserByIdResponse {
+export class CreateUserResponse {
   @Field(() => User, { nullable: false })
   user: User;
 }

@@ -1,5 +1,4 @@
 import {
-  FindAllUsersResponse,
   CreateUserInput,
   CreateUserResponse,
   FindUserByIdResponse,
@@ -28,18 +27,21 @@ export class UserResolver {
     return await this.findUserUseCase.perform({ userId: id });
   }
 
-  @Query(() => FindAllUsersResponse, { nullable: true })
-  async allUsers(): Promise<FindAllUsersResponse> {
+  @Query(() => [User], { nullable: false })
+  async allUsers(): Promise<User[]> {
     const { users } = await this.findAllUserUseCase.perform();
-    return {
-      users,
-    };
+    return users;
   }
 
-  @Mutation(() => CreateUserResponse, { nullable: true })
+  @Mutation(() => CreateUserResponse, { nullable: false })
   async createUser(
     @Args('user') user: CreateUserInput,
   ): Promise<CreateUserResponse> {
     return await this.createUserUseCase.perform(user);
   }
+
+  //   @Mutation(() => LoginResponse, { nullable: false })
+  //   async login(@Args('user') user: LoginInput): Promise<LoginResponse> {
+  //     return user;
+  //   }
 }
