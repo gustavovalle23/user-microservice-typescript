@@ -13,8 +13,4 @@ Object {
 }
 `;
 
-exports[`User (e2e) Should return all users 1`] = `
-Object {
-  "users": Array [],
-}
-`;
+exports[`User (e2e) Should return all users 1`] = `Array []`;

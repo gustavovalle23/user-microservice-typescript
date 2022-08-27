@@ -4,9 +4,12 @@ import { print } from 'graphql/language/printer';
 import * as request from 'supertest';
 import { gql } from 'apollo-server-express';
 import { AppModule } from '@/infra/modules';
+import mongoose from 'mongoose';
+import { Server } from 'http';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
+  let server: Server;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -15,14 +18,24 @@ describe('User (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+    server = app.getHttpServer();
+    server.listen();
   });
 
   afterEach(async () => {
+    await mongoose
+      .createConnection('mongodb://localhost/user-db')
+      .useDb('user-db')
+      .collection('users')
+      .deleteMany({});
+
+    server?.close();
+    await mongoose.disconnect();
     await app.close();
   });
 
-  it('Should return a user', async () => {
-    await request(app.getHttpServer())
+  it.skip('Should return a user', async () => {
+    await request(server)
       .post('/graphql')
       .send({
         query: print(gql`
@@ -47,7 +60,7 @@ describe('User (e2e)', () => {
   });
 
   it('Should return an error when send a invalid user id', async () => {
-    await request(app.getHttpServer())
+    await request(server)
       .post('/graphql')
       .send({
         query: print(gql`
@@ -77,20 +90,18 @@ describe('User (e2e)', () => {
   });
 
   it('Should return all users', async () => {
-    await request(app.getHttpServer())
+    await request(server)
       .post('/graphql')
       .send({
         query: print(gql`
           query AllUsers {
             allUsers {
-              users {
-                id
-                name
-                isActive
-                email
-                documentNo
-                birthDate
-              }
+              id
+              name
+              isActive
+              email
+              documentNo
+              birthDate
             }
           }
         `),
@@ -102,7 +113,7 @@ describe('User (e2e)', () => {
   });
 
   it('Should create a user', async () => {
-    await request(app.getHttpServer())
+    await request(server)
       .post('/graphql')
       .send({
         query: print(gql`

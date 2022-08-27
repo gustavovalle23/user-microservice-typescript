@@ -6,4 +6,4 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - .docker-data/mongo:/data/medium-db
+      - .docker-data/mongo:/data/user-db
