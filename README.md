@@ -6,9 +6,11 @@
 
 - [x] Find all users registered
 - [x] Find all user by id
+- [ ] Create user
+- [ ] Update user
 - [x] Use docker and docker-compose
 - [x] Configure MongoDB
-- [ ] Use task file
+- [x] Use task file
 
 ## Build Setup Docker
 
