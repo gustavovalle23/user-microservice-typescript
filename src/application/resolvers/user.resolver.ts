@@ -24,7 +24,7 @@ export class UserResolver {
     @Args('id', { nullable: false })
     id: string,
   ): Promise<FindUserByIdResponse> {
-    return await this.findUserUseCase.perform({ userId: id });
+    return this.findUserUseCase.perform({ userId: id });
   }
 
   @Query(() => [User], { nullable: false })
@@ -37,7 +37,7 @@ export class UserResolver {
   async createUser(
     @Args('user') user: CreateUserInput,
   ): Promise<CreateUserResponse> {
-    return await this.createUserUseCase.perform(user);
+    return this.createUserUseCase.perform(user);
   }
 
   //   @Mutation(() => LoginResponse, { nullable: false })
