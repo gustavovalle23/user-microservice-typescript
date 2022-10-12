@@ -2,20 +2,24 @@
 > This is a microservice that represents the users of the application
 
 ## Features and Technologies
-> This project uses Node.js v18.5.0, NestJS (with Express), TypeORM, PostgreSQL and GraphQL
+> This project uses Node.js v16.17.1, NestJS (with Express), Mongoose, MongoDB and GraphQL
 
 * Find all users registered
 * Find all user by id
 
 ## Build Setup Docker
+
 ```console
+user@project:~$ docker-compose run app yarn install --ignore-scripts
 user@project:~$ docker-compose build --no-cache && docker-compose up
 ```
 
 ## Build Setup Local
 ```
 # install dependencies
-yarn install
+```console
+user@project:~$ docker-compose run app yarn install --ignore-scripts
+```
 
 # start the server (GraphiQL is started at http://127.0.0.1:3000)
 yarn start

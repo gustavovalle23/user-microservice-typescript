@@ -1,9 +1,41 @@
-version: '3'
+version: '3.5'
+
 services:
-  mongo:
-    image: mongo
-    restart: unless-stopped
+  app:
+    hostname: 'app-user-microservice'
+    container_name: 'app-user-microservice'
     ports:
-      - '27017:27017'
+      - "4002:4000"
+      - "9229:9229"
     volumes:
-      - .docker-data/mongo:/data/user-db
+      - .:/app
+    build:
+      dockerfile: Dockerfile
+      context: .
+    networks:
+      - local-network
+    env_file:
+      - .env
+    extra_hosts:
+      - 'host.docker.internal:172.17.0.1'
+  mongo:
+    ports:
+      - "27047:27017"
+    volumes:
+      - 'mongodb-volume:/data/db'
+    hostname: 'mongo-user-microservice'
+    container_name: 'mongo-user-microservice'
+    image: 'mongo:4.2.3'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: test
+    networks:
+      - local-network
+    networks:
+      - local-network
+networks:
+  local-network:
+    name: network-user-microservice
+volumes:
+  mongodb-volume:
+    driver: local
