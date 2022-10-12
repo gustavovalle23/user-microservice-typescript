@@ -4,8 +4,11 @@
 ## Features and Technologies
 > This project uses Node.js v16.17.1, NestJS (with Express), Mongoose, MongoDB and GraphQL
 
-- [ ] Find all users registered
-- [ ] Find all user by id
+- [x] Find all users registered
+- [x] Find all user by id
+- [x] Use docker and docker-compose
+- [x] Configure MongoDB
+- [ ] Use task file
 
 ## Build Setup Docker
 
