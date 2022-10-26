@@ -3,10 +3,10 @@ import {
   CreateUserUseCase,
   FindAllUsersUseCase,
   FindUserUseCase,
-} from '@/domain/use-cases';
+} from '@/application/use-cases';
 import { UserResolver } from '@/application/resolvers';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from '@/infra/entities';
+import { User, UserSchema } from '@/infra/models';
 import { UserRepo } from '@/infra/repositories';
 
 @Module({
@@ -23,9 +23,9 @@ import { UserRepo } from '@/infra/repositories';
     UserResolver,
 
     // Use cases
-    FindUserUseCase,
-    FindAllUsersUseCase,
-    CreateUserUseCase,
+    FindUserUseCase.UseCase,
+    FindAllUsersUseCase.UseCase,
+    CreateUserUseCase.UseCase,
 
     // Repositories
     {
