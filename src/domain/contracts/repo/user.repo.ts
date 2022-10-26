@@ -1,8 +1,17 @@
-import { CreateUserInput, FindUserByIdArgs, User } from '@/domain/dtos';
+import { User } from '@/domain/entities';
+
+export const USER_REPOSITORY = 'UserRepo';
 
 export namespace CreateUser {
-  export type Input = CreateUserInput;
-  export type Output = { id: string };
+  export type Input = {
+    email: string;
+    name: string;
+    isActive: boolean;
+    password: string;
+    documentNo: string;
+    birthDate: Date;
+  };
+  export type Output = User;
 }
 
 export interface CreateUser {
@@ -10,7 +19,7 @@ export interface CreateUser {
 }
 
 export namespace FindUserById {
-  export type Input = FindUserByIdArgs;
+  export type Input = { userId: string };
   export type Output = User;
 }
 

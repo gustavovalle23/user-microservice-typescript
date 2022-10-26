@@ -3,20 +3,20 @@ import {
   CreateUserResponse,
   FindUserByIdResponse,
   User,
-} from '@/domain/dtos/';
+} from '@/application/dtos';
 import {
   CreateUserUseCase,
   FindAllUsersUseCase,
   FindUserUseCase,
-} from '@/domain/use-cases';
+} from '@/application/use-cases';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(
-    private readonly findUserUseCase: FindUserUseCase,
-    private readonly findAllUserUseCase: FindAllUsersUseCase,
-    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly findUserUseCase: FindUserUseCase.UseCase,
+    private readonly findAllUserUseCase: FindAllUsersUseCase.UseCase,
+    private readonly createUserUseCase: CreateUserUseCase.UseCase,
   ) {}
 
   @Query(() => FindUserByIdResponse, { nullable: false })
