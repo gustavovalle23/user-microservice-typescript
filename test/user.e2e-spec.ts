@@ -6,6 +6,7 @@ import { gql } from 'apollo-server-express';
 import { AppModule } from '@/infra/modules';
 import mongoose from 'mongoose';
 import { Server } from 'http';
+import { users } from './seed';
 
 describe('User (e2e)', () => {
   let app: INestApplication;
@@ -20,12 +21,20 @@ describe('User (e2e)', () => {
     await app.init();
     server = app.getHttpServer();
     server.listen();
+
+    await mongoose
+      .createConnection(
+        'mongodb://test:test@mongo:27017/admin?serverSelectionTimeoutMS=2000&authSource=admin',
+      )
+      .collection('users')
+      .insertMany(users);
   });
 
   afterEach(async () => {
     await mongoose
-      .createConnection('mongodb://localhost/user-db')
-      .useDb('user-db')
+      .createConnection(
+        'mongodb://test:test@mongo:27017/admin?serverSelectionTimeoutMS=2000&authSource=admin',
+      )
       .collection('users')
       .deleteMany({});
 
@@ -34,13 +43,13 @@ describe('User (e2e)', () => {
     await app.close();
   });
 
-  it.skip('Should return a user', async () => {
+  it('Should return a user', async () => {
     await request(server)
       .post('/graphql')
       .send({
         query: print(gql`
           query FindUserById {
-            findUserById(id: "62f5b071f6d8335216f12df2") {
+            findUserById(id: "111111111111111111111111") {
               user {
                 id
                 name

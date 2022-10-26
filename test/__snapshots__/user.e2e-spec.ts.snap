@@ -4,13 +4,24 @@ exports[`User (e2e) Should create a user 1`] = `undefined`;
 
 exports[`User (e2e) Should return a user 1`] = `
 Object {
-  "birthDate": "1999-06-26T00:00:00.000Z",
-  "documentNo": "44744675822",
-  "email": "gustavo.vallerp@hotmail.com",
-  "id": "62f5b071f6d8335216f12df2",
+  "birthDate": "1999-10-02T00:00:00.000Z",
+  "documentNo": "111111111",
+  "email": "email@email.com",
+  "id": "111111111111111111111111",
   "isActive": true,
-  "name": "Gusta",
+  "name": "Teste",
 }
 `;
 
-exports[`User (e2e) Should return all users 1`] = `Array []`;
+exports[`User (e2e) Should return all users 1`] = `
+Array [
+  Object {
+    "birthDate": "1999-10-02T00:00:00.000Z",
+    "documentNo": "111111111",
+    "email": "email@email.com",
+    "id": "111111111111111111111111",
+    "isActive": true,
+    "name": "Teste",
+  },
+]
+`;

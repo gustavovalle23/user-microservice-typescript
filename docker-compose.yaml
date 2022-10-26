@@ -5,7 +5,7 @@ services:
     hostname: 'app-user-microservice'
     container_name: 'app-user-microservice'
     ports:
-      - "4002:4000"
+      - "4000:4000"
       - "9229:9229"
     volumes:
       - .:/app
@@ -29,8 +29,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: test
       MONGO_INITDB_ROOT_PASSWORD: test
-    networks:
-      - local-network
     networks:
       - local-network
 networks:

@@ -29,7 +29,7 @@ export class UserRepo implements CreateUser, FindUserById, FindAllUsers {
         _id: userId,
       })
       .exec();
-    return toEntity(user);
+    return user ? toEntity(user) : null;
   }
 
   async findAllUsers(): Promise<FindAllUsers.Output> {

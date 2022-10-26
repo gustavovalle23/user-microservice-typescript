@@ -42,20 +42,12 @@ export class User {
     return this._email;
   }
 
-  get role() {
-    return this._role;
-  }
-
   get isActive() {
     return this._isActive;
   }
 
   get documentNo() {
     return this._documentNo;
-  }
-
-  get password() {
-    return this._password;
   }
 
   get birthDate() {
