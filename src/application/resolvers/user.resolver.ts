@@ -1,7 +1,8 @@
 import {
   CreateUserInput,
   CreateUserResponse,
-  FindUserByIdResponse,
+  LoginInput,
+  LoginResponse,
   User,
 } from '@/application/dtos';
 import {
@@ -19,12 +20,13 @@ export class UserResolver {
     private readonly createUserUseCase: CreateUserUseCase.UseCase,
   ) {}
 
-  @Query(() => FindUserByIdResponse, { nullable: false })
+  @Query(() => User, { nullable: false })
   async findUserById(
     @Args('id', { nullable: false })
     id: string,
-  ): Promise<FindUserByIdResponse> {
-    return this.findUserUseCase.perform({ userId: id });
+  ): Promise<User> {
+    const { user } = await this.findUserUseCase.perform({ userId: id });
+    return { ...user };
   }
 
   @Query(() => [User], { nullable: false })
@@ -35,13 +37,20 @@ export class UserResolver {
 
   @Mutation(() => CreateUserResponse, { nullable: false })
   async createUser(
-    @Args('user') user: CreateUserInput,
+    @Args('user') input: CreateUserInput,
   ): Promise<CreateUserResponse> {
-    return this.createUserUseCase.perform(user);
+    const { user, accessToken, refreshToken } =
+      await this.createUserUseCase.perform(input);
+
+    return {
+      user,
+      accessToken,
+      refreshToken,
+    };
   }
 
-  //   @Mutation(() => LoginResponse, { nullable: false })
-  //   async login(@Args('user') user: LoginInput): Promise<LoginResponse> {
-  //     return user;
-  //   }
+  @Mutation(() => LoginResponse, { nullable: false })
+  async login(@Args('user') {}: LoginInput): Promise<LoginResponse> {
+    return;
+  }
 }

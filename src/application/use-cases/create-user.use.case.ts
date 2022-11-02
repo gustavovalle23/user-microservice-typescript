@@ -5,12 +5,15 @@ import {
   FindUserById,
   USER_REPOSITORY,
 } from '@/domain/contracts/repo';
+import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
 
 export namespace CreateUserUseCase {
   export class UseCase {
     constructor(
       @Inject(USER_REPOSITORY)
       private readonly userRepo: CreateUser & FindUserById,
+      @Inject(JWT_SERVICE)
+      private readonly jwt: Jwt,
     ) {}
 
     async perform(createUserInput: Input): Promise<Output> {
@@ -19,8 +22,15 @@ export namespace CreateUserUseCase {
         userId: id,
       });
 
+      const { accessToken, refreshToken } = await this.jwt.validate({
+        email: createUserInput.email,
+        password: createUserInput.password,
+      });
+
       return {
         user,
+        accessToken,
+        refreshToken,
       };
     }
   }
@@ -36,5 +46,7 @@ export namespace CreateUserUseCase {
 
   type Output = {
     user: User;
+    accessToken: string;
+    refreshToken: string;
   };
 }
