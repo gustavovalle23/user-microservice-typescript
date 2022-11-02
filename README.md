@@ -14,23 +14,24 @@
 - [x] Use task file
 
 ## Build Setup Docker
-
 ```console
-user@project:~$ docker-compose run app yarn install --ignore-scripts
-user@project:~$ docker-compose build --no-cache && docker-compose up
+user@project:~$ task
 ```
 
-# Build Setup Local
-## install dependencies
+## Stop Docker
 ```console
-user@project:~$ docker-compose run app yarn install --ignore-scripts
+user@project:~$ task stop
 ```
 
-## start the server (GraphiQL is started at http://127.0.0.1:3000)
-yarn start
+
+## enter n container server (GraphiQL is started at http://127.0.0.1:4000/graphql)
+task app
 
 # run tests
-yarn test
+```console
+user@project:~$ yarn test:e2e
+user@project:~$ yarn test:cov
+```
 
 ## Query Examples
 
