@@ -1,56 +1,55 @@
+import { Entity } from '@/@seedwork/domain/entity';
+import { UniqueEntityId } from '@/@seedwork/domain/value-objects';
+
 type UserProps = {
-  id: string;
   name: string;
   email: string;
-  role: string;
-  isActive: boolean;
+  role?: string;
+  isActive?: boolean;
   documentNo: string;
-  password: string;
+  password?: string;
   birthDate: Date;
 };
 
-export class User {
-  private _id: string;
-  private _name: string;
-  private _email: string;
-  private _role: string;
-  private _isActive: boolean;
-  private _documentNo: string;
-  private _password: string;
-  private _birthDate: Date;
+export class User extends Entity<UserProps> {
+  constructor(public readonly props: UserProps, id?: UniqueEntityId) {
+    super(props, id);
+    this.props.isActive =
+      this.props.isActive === undefined ? true : this.props.isActive;
+    User.validate(props);
+  }
 
-  constructor(public readonly props: UserProps) {
-    this._id = props.id;
-    this._name = props.name;
-    this._email = props.email;
-    this._role = props.role;
-    this._isActive = props.isActive;
-    this._documentNo = props.documentNo;
-    this._password = props.password;
-    this._birthDate = props.birthDate;
+  static validate(props: UserProps) {
+    const validEmail = props.email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      );
+
+    if (!Boolean(validEmail)) throw new Error('Invalid e-mail format!');
   }
 
   get id() {
-    return this._id;
+    return this.uniqueEntityId.value;
   }
 
   get name() {
-    return this._name;
+    return this.props.name;
   }
 
   get email() {
-    return this._email;
+    return this.props.email;
   }
 
   get isActive() {
-    return this._isActive;
+    return this.props.isActive;
   }
 
   get documentNo() {
-    return this._documentNo;
+    return this.props.documentNo;
   }
 
   get birthDate() {
-    return this._birthDate;
+    return this.props.birthDate;
   }
 }

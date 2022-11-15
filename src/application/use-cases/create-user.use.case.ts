@@ -6,9 +6,10 @@ import {
   USER_REPOSITORY,
 } from '@/domain/contracts/repo';
 import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
+import DefaultUseCase from '@/@seedwork/application/use-case';
 
 export namespace CreateUserUseCase {
-  export class UseCase {
+  export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(
       @Inject(USER_REPOSITORY)
       private readonly userRepo: CreateUser & FindUserById,
@@ -16,7 +17,7 @@ export namespace CreateUserUseCase {
       private readonly jwt: Jwt,
     ) {}
 
-    async perform(createUserInput: Input): Promise<Output> {
+    async execute(createUserInput: Input): Promise<Output> {
       const { id } = await this.userRepo.createUser(createUserInput);
       const user = await this.userRepo.findUserById({
         userId: id,

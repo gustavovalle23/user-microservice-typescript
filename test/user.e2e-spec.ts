@@ -43,21 +43,19 @@ describe('User (e2e)', () => {
     await app.close();
   });
 
-  it('Should return a user', async () => {
+  it('Should return an user', async () => {
     await request(server)
       .post('/graphql')
       .send({
         query: print(gql`
           query FindUserById {
             findUserById(id: "111111111111111111111111") {
-              user {
-                id
-                name
-                isActive
-                email
-                documentNo
-                birthDate
-              }
+              id
+              name
+              isActive
+              email
+              documentNo
+              birthDate
             }
           }
         `),
@@ -75,14 +73,12 @@ describe('User (e2e)', () => {
         query: print(gql`
           query FindUserById {
             findUserById(id: "62f5b071f6d8335216f12df1") {
-              user {
-                id
-                name
-                isActive
-                email
-                documentNo
-                birthDate
-              }
+              id
+              name
+              isActive
+              email
+              documentNo
+              birthDate
             }
           }
         `),

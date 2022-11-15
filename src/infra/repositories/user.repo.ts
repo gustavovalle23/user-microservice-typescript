@@ -8,9 +8,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User as UserModel } from '@/infra/models';
 import { User } from '@/domain/entities';
+import { UniqueEntityId } from '@/@seedwork/domain/value-objects';
 
 Injectable();
-export class UserRepo implements CreateUser, FindUserById, FindAllUsers {
+export class UserRepository implements CreateUser, FindUserById, FindAllUsers {
   constructor(
     @InjectModel(UserModel.name)
     private readonly userModel: Model<UserModel>,
@@ -39,14 +40,17 @@ export class UserRepo implements CreateUser, FindUserById, FindAllUsers {
 }
 
 function toEntity(user: UserModel) {
-  return new User({
-    id: user._id.toString(),
-    birthDate: user.birthDate,
-    documentNo: user.documentNo,
-    email: user.email,
-    isActive: user.isActive,
-    name: user.name,
-    password: user.password,
-    role: user.role,
-  });
+  const userId = new UniqueEntityId(user._id.toString());
+  return new User(
+    {
+      birthDate: user.birthDate,
+      documentNo: user.documentNo,
+      email: user.email,
+      isActive: user.isActive,
+      name: user.name,
+      password: user.password,
+      role: user.role,
+    },
+    userId,
+  );
 }

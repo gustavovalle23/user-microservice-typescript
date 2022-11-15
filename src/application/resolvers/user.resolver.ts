@@ -25,13 +25,13 @@ export class UserResolver {
     @Args('id', { nullable: false })
     id: string,
   ): Promise<User> {
-    const { user } = await this.findUserUseCase.perform({ userId: id });
+    const { user } = await this.findUserUseCase.execute({ userId: id });
     return { ...user };
   }
 
   @Query(() => [User], { nullable: false })
   async allUsers(): Promise<User[]> {
-    const { users } = await this.findAllUserUseCase.perform();
+    const { users } = await this.findAllUserUseCase.execute();
     return users;
   }
 
@@ -40,7 +40,7 @@ export class UserResolver {
     @Args('user') input: CreateUserInput,
   ): Promise<CreateUserResponse> {
     const { user, accessToken, refreshToken } =
-      await this.createUserUseCase.perform(input);
+      await this.createUserUseCase.execute(input);
 
     return {
       user,

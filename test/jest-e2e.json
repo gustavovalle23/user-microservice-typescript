@@ -4,9 +4,8 @@
 	  "^@/test/(.*)$": "<rootDir>/test/$1",
 	  "^@/(.*)$": "<rootDir>/src/$1"
 	},
-	"coverageDirectory": "./test/coverage",
 	"rootDir": "..",
-	"testRegex": ".e2e-spec.ts$",
+	"testRegex": "spec.ts$",
 	"transform": {
 	  "^.+\\.(t|j)s$": "ts-jest"
 	},

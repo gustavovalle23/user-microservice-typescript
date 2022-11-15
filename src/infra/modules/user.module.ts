@@ -7,7 +7,10 @@ import {
 import { UserResolver } from '@/application/resolvers';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '@/infra/models';
-import { UserRepo } from '@/infra/repositories';
+import { UserRepository } from '@/infra/repositories';
+import { JwtGateway } from '@/infra/gateways';
+import { USER_REPOSITORY } from '@/domain/contracts/repo';
+import { JWT_SERVICE } from '@/domain/contracts/gateways';
 
 @Module({
   imports: [
@@ -19,18 +22,18 @@ import { UserRepo } from '@/infra/repositories';
     ]),
   ],
   providers: [
-    // Resolvers
     UserResolver,
-
-    // Use cases
     FindUserUseCase.UseCase,
     FindAllUsersUseCase.UseCase,
     CreateUserUseCase.UseCase,
 
-    // Repositories
     {
-      provide: 'UserRepo',
-      useClass: UserRepo,
+      provide: USER_REPOSITORY,
+      useClass: UserRepository,
+    },
+    {
+      provide: JWT_SERVICE,
+      useClass: JwtGateway,
     },
   ],
 })
