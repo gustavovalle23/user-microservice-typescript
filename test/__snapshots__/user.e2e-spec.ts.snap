@@ -12,3 +12,5 @@ Array [
   },
 ]
 `;
+
+exports[`User (e2e) Should return an user 1`] = `undefined`;

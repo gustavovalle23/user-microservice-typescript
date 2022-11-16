@@ -12,5 +12,5 @@ export namespace Jwt {
 }
 
 export interface Jwt {
-  validate(input: Jwt.Input): Promise<Jwt.Output>;
+  validate(input: Jwt.Input): Jwt.Output;
 }

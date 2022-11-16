@@ -25,7 +25,7 @@ export class UserResolver {
     @Args('id', { nullable: false })
     id: string,
   ): Promise<User> {
-    const { user } = await this.findUserUseCase.execute({ userId: id });
+    const user = await this.findUserUseCase.execute({ userId: id });
     return { ...user };
   }
 

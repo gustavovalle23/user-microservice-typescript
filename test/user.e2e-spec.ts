@@ -126,10 +126,10 @@ describe('User (e2e)', () => {
             createUser(
               user: {
                 birthDate: "1999-06-26"
-                documentNo: "44744675822"
-                email: "gustavo.vallerp@hotmail.com"
+                documentNo: "44444444444"
+                email: "test@gmail.com"
                 isActive: true
-                name: "Gusta"
+                name: "Test"
                 password: "123456"
               }
             ) {
@@ -147,7 +147,15 @@ describe('User (e2e)', () => {
       })
       .expect(({ body }) => {
         expect(body.errors).toBeUndefined();
-        expect(body.data?.allUsers).toMatchSnapshot();
+        expect(body.data.createUser.user.birthDate).toStrictEqual(
+          '1999-06-26T00:00:00.000Z',
+        );
+        expect(body.data.createUser.user.documentNo).toStrictEqual(
+          '44444444444',
+        );
+        expect(body.data.createUser.user.email).toStrictEqual('test@gmail.com');
+        expect(body.data.createUser.user.isActive).toStrictEqual(true);
+        expect(body.data.createUser.user.name).toStrictEqual('Test');
       });
   });
 });

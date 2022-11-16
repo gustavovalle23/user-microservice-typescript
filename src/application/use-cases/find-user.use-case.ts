@@ -1,4 +1,3 @@
-import { User } from '@/application/dtos';
 import { UserNotFoundError } from '@/domain/errors';
 import { Inject } from '@nestjs/common';
 import { FindUserById, USER_REPOSITORY } from '@/domain/contracts/repo';
@@ -15,9 +14,7 @@ export namespace FindUserUseCase {
         userId,
       });
       if (!user) throw new UserNotFoundError(userId);
-      return {
-        user,
-      };
+      return user.toJSON();
     }
   }
 
@@ -26,6 +23,13 @@ export namespace FindUserUseCase {
   };
 
   type Output = {
-    user: User;
+    id: string;
+    birthDate: Date;
+    documentNo: string;
+    email: string;
+    isActive: boolean;
+    name: string;
+    password: string;
+    role: string;
   };
 }
