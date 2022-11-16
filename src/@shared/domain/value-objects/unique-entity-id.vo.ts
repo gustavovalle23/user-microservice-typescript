@@ -1,4 +1,4 @@
-import { ValueObject } from '@/@seedwork/domain/value-objects';
+import { ValueObject } from '@/@shared/domain/value-objects';
 
 export class UniqueEntityId extends ValueObject<string> {
   constructor(readonly id?: string) {

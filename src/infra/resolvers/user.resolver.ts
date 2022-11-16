@@ -1,15 +1,9 @@
-import {
-  CreateUserInput,
-  CreateUserResponse,
-  LoginInput,
-  LoginResponse,
-  User,
-} from '@/application/dtos';
-import {
-  CreateUserUseCase,
-  FindAllUsersUseCase,
-  FindUserUseCase,
-} from '@/application/use-cases';
+import { CreateUserUseCase } from '@/use-cases/create';
+import { CreateUserInput } from '@/use-cases/create/create-user.input';
+import { CreateUserResponse } from '@/use-cases/create/create-user.response';
+import { FindUserUseCase } from '@/use-cases/find';
+import { FindAllUsersUseCase } from '@/use-cases/list';
+import { User } from '@/use-cases/user.dto';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver(() => User)
@@ -47,10 +41,5 @@ export class UserResolver {
       accessToken,
       refreshToken,
     };
-  }
-
-  @Mutation(() => LoginResponse, { nullable: false })
-  async login(@Args('user') {}: LoginInput): Promise<LoginResponse> {
-    return;
   }
 }

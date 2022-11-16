@@ -1,4 +1,4 @@
-import { UniqueEntityId } from '@/@seedwork/domain/value-objects/unique-entity-id.vo';
+import { UniqueEntityId } from '@/@shared/domain/value-objects/unique-entity-id.vo';
 
 export abstract class Entity<Props = any> {
   public readonly uniqueEntityId: UniqueEntityId;

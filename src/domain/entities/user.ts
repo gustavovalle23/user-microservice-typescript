@@ -1,5 +1,5 @@
-import { Entity } from '@/@seedwork/domain/entity';
-import { UniqueEntityId } from '@/@seedwork/domain/value-objects';
+import { Entity } from '@/@shared/domain/entity';
+import { UniqueEntityId } from '@/@shared/domain/value-objects';
 
 type UserProps = {
   name: string;

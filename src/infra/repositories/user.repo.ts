@@ -8,7 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User as UserModel } from '@/infra/models';
 import { User } from '@/domain/entities';
-import { UniqueEntityId } from '@/@seedwork/domain/value-objects';
+import { UniqueEntityId } from '@/@shared/domain/value-objects';
 
 Injectable();
 export class UserRepository implements CreateUser, FindUserById, FindAllUsers {

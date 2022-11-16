@@ -1,4 +1,3 @@
-import { User } from '@/application/dtos';
 import { Inject } from '@nestjs/common';
 import {
   CreateUser,
@@ -6,7 +5,8 @@ import {
   USER_REPOSITORY,
 } from '@/domain/contracts/repo';
 import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
-import DefaultUseCase from '@/@seedwork/application/use-case';
+import DefaultUseCase from '@/@shared/application/use-case';
+import { User } from '../user.dto';
 
 export namespace CreateUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -23,15 +23,15 @@ export namespace CreateUserUseCase {
         userId: id,
       });
 
-      const { accessToken, refreshToken } = await this.jwt.validate({
+      const tokens = await this.jwt.validate({
         email: createUserInput.email,
         password: createUserInput.password,
       });
 
       return {
         user,
-        accessToken,
-        refreshToken,
+        accessToken: tokens?.accessToken,
+        refreshToken: tokens?.refreshToken,
       };
     }
   }

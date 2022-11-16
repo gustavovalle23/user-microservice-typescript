@@ -1,7 +1,7 @@
-import { User } from '@/application/dtos';
 import { Inject } from '@nestjs/common';
 import { FindAllUsers, USER_REPOSITORY } from '@/domain/contracts/repo';
-import DefaultUseCase from '@/@seedwork/application/use-case';
+import DefaultUseCase from '@/@shared/application/use-case';
+import { User } from '../user.dto';
 
 export namespace FindAllUsersUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {

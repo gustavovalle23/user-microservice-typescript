@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
-import {
-  CreateUserUseCase,
-  FindAllUsersUseCase,
-  FindUserUseCase,
-} from '@/application/use-cases';
-import { UserResolver } from '@/application/resolvers';
+
+import { UserResolver } from '@/infra/resolvers';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '@/infra/models';
 import { UserRepository } from '@/infra/repositories';
 import { JwtGateway } from '@/infra/gateways';
 import { USER_REPOSITORY } from '@/domain/contracts/repo';
 import { JWT_SERVICE } from '@/domain/contracts/gateways';
+import { FindUserUseCase } from '@/use-cases/find';
+import { FindAllUsersUseCase } from '@/use-cases/list';
+import { CreateUserUseCase } from '@/use-cases/create';
 
 @Module({
   imports: [
