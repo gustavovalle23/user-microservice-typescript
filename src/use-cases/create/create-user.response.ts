@@ -8,7 +8,4 @@ export class CreateUserResponse {
 
   @Field()
   accessToken: string;
-
-  @Field()
-  refreshToken: string;
 }

@@ -1,29 +1,30 @@
 import { CreateUserUseCase } from './create-user.use.case';
 
 describe('Unit Test create user use case', () => {
-  const MockRepository = () => {
-    return {
-      findById: jest.fn(),
-      create: jest.fn(),
-    };
-  };
-
-  const MockJwt = () => {
-    return {
-      validate: jest.fn(),
-    };
-  };
-
   const input = {
     name: 'Tester',
     birthDate: new Date(1999, 5, 12),
     documentNo: '44444444444',
     email: 'test@gmail.com',
     isActive: true,
-    password: 'fakepass',
   };
 
-  it('Should create an user', () => {
+  const MockRepository = () => {
+    return {
+      findById: jest.fn().mockReturnValue({ id: '123', ...input }),
+      create: jest.fn().mockReturnValue({ id: '123', ...input }),
+    };
+  };
+
+  const MockJwt = () => {
+    return {
+      createAccessToken: jest
+        .fn()
+        .mockReturnValue({ accessToken: 'accessToken' }),
+    };
+  };
+
+  it('Should create an user', async () => {
     const userRepository = MockRepository();
     const jwtGateway = MockJwt();
 
@@ -32,14 +33,21 @@ describe('Unit Test create user use case', () => {
       jwtGateway,
     );
 
-    const output = createUserUseCase.execute(input);
+    const output = await createUserUseCase.execute({
+      ...input,
+      password: 'fakepassword',
+    });
+
     expect(output).toEqual({
-      id: expect.any(String),
-      name: input.name,
-      birthDate: input.birthDate,
-      documentNo: input.documentNo,
-      email: input.email,
-      isActive: input.isActive,
+      user: {
+        id: expect.any(String),
+        name: input.name,
+        birthDate: input.birthDate,
+        documentNo: input.documentNo,
+        email: input.email,
+        isActive: input.isActive,
+      },
+      accessToken: expect.any(String),
     });
   });
 });

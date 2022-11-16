@@ -33,13 +33,11 @@ export class UserResolver {
   async createUser(
     @Args('user') input: CreateUserInput,
   ): Promise<CreateUserResponse> {
-    const { user, accessToken, refreshToken } =
-      await this.createUserUseCase.execute(input);
+    const { user, accessToken } = await this.createUserUseCase.execute(input);
 
     return {
       user,
       accessToken,
-      refreshToken,
     };
   }
 }

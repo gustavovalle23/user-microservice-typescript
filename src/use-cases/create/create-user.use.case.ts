@@ -23,15 +23,11 @@ export namespace CreateUserUseCase {
         userId: id,
       });
 
-      const tokens = await this.jwt.validate({
-        email: createUserInput.email,
-        password: createUserInput.password,
-      });
+      const { accessToken } = this.jwt.createAccessToken({ userId: id });
 
       return {
         user,
-        accessToken: tokens?.accessToken,
-        refreshToken: tokens?.refreshToken,
+        accessToken,
       };
     }
   }
@@ -48,6 +44,5 @@ export namespace CreateUserUseCase {
   type Output = {
     user: User;
     accessToken: string;
-    refreshToken: string;
   };
 }
