@@ -10,7 +10,7 @@ export namespace FindUserUseCase {
       private readonly userRepo: FindUserById,
     ) {}
     async execute({ userId }: Input): Promise<Output> {
-      const user = await this.userRepo.findUserById({
+      const user = await this.userRepo.findById({
         userId,
       });
       if (!user) throw new UserNotFoundError(userId);

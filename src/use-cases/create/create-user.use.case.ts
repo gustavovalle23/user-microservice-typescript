@@ -18,8 +18,8 @@ export namespace CreateUserUseCase {
     ) {}
 
     async execute(createUserInput: Input): Promise<Output> {
-      const { id } = await this.userRepo.createUser(createUserInput);
-      const user = await this.userRepo.findUserById({
+      const { id } = await this.userRepo.create(createUserInput);
+      const user = await this.userRepo.findById({
         userId: id,
       });
 

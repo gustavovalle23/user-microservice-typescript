@@ -17,14 +17,12 @@ export class UserRepository implements CreateUser, FindUserById, FindAllUsers {
     private readonly userModel: Model<UserModel>,
   ) {}
 
-  async createUser(user: CreateUser.Input): Promise<CreateUser.Output> {
+  async create(user: CreateUser.Input): Promise<CreateUser.Output> {
     const userCreated = await this.userModel.create(user);
     return toEntity(userCreated);
   }
 
-  async findUserById({
-    userId,
-  }: FindUserById.Input): Promise<FindUserById.Output> {
+  async findById({ userId }: FindUserById.Input): Promise<FindUserById.Output> {
     const user = await this.userModel
       .findOne({
         _id: userId,
@@ -33,7 +31,7 @@ export class UserRepository implements CreateUser, FindUserById, FindAllUsers {
     return user ? toEntity(user) : null;
   }
 
-  async findAllUsers(): Promise<FindAllUsers.Output> {
+  async findAll(): Promise<FindAllUsers.Output> {
     const users = await this.userModel.find().exec();
     return users.map(toEntity);
   }
