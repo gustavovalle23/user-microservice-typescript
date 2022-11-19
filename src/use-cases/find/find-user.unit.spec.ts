@@ -24,6 +24,12 @@ describe('Unit Test - Find User Use Case', () => {
     };
   };
 
+  const MockRepositoryNotFound = () => {
+    return {
+      findById: jest.fn(),
+    };
+  };
+
   it('Should find a user', async () => {
     const repository = MockRepository();
     const useCase = new FindUserUseCase.UseCase(repository);
@@ -37,5 +43,13 @@ describe('Unit Test - Find User Use Case', () => {
       isActive: input.isActive,
       name: input.name,
     });
+  });
+
+  it('Should return an error when user not found', async () => {
+    const repository = MockRepositoryNotFound();
+    const useCase = new FindUserUseCase.UseCase(repository);
+    await expect(useCase.execute({ userId })).rejects.toThrowError(
+      'User not found with id 123',
+    );
   });
 });
