@@ -6,7 +6,7 @@ import {
 } from '@/domain/contracts/repo';
 import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
 import DefaultUseCase from '@/@shared/application/use-case';
-import { User } from '@/use-cases/user.dto';
+import { UserOutput } from '@/use-cases/user.output';
 
 export namespace CreateUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -49,7 +49,7 @@ export namespace CreateUserUseCase {
   };
 
   type Output = {
-    user: User;
+    user: UserOutput;
     accessToken: string;
   };
 }

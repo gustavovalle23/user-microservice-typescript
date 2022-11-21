@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { FindAllUsers, USER_REPOSITORY } from '@/domain/contracts/repo';
 import DefaultUseCase from '@/@shared/application/use-case';
-import { User } from '../user.dto';
+import { UserOutput, UserOutputMapper } from '../user.output';
 
 export namespace FindAllUsersUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -11,14 +11,10 @@ export namespace FindAllUsersUseCase {
     ) {}
     async execute(): Promise<Output> {
       const users = await this.userRepo.findAll();
-      return {
-        users,
-      };
+      return users.map((user) => UserOutputMapper.toOutput(user));
     }
   }
 
   type Input = void;
-  type Output = {
-    users: User[];
-  };
+  type Output = UserOutput[];
 }

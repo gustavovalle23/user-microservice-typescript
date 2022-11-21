@@ -1,11 +1,6 @@
-import { Field, ObjectType } from '@nestjs/graphql';
-import { User } from '../user.dto';
+import { UserOutput } from '../user.output';
 
-@ObjectType()
-export class CreateUserOutput {
-  @Field(() => User, { nullable: false })
-  user: User;
-
-  @Field()
+export type CreateUserOutput = {
+  user: UserOutput;
   accessToken: string;
-}
+};
