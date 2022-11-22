@@ -1,10 +1,9 @@
 import { CreateUserUseCase } from '@/use-cases/create';
 import { CreateUserInput } from '@/use-cases/create/create-user.input';
-import { CreateUserOutput } from '@/use-cases/create/create-user.output';
 import { FindUserUseCase } from '@/use-cases/find';
 import { FindAllUsersUseCase } from '@/use-cases/list';
-import { User } from '@/use-cases/user.dto';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { CreateUserOutput, User } from './user';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -25,7 +24,7 @@ export class UserResolver {
 
   @Query(() => [User], { nullable: false })
   async allUsers(): Promise<User[]> {
-    const { users } = await this.findAllUserUseCase.execute();
+    const users = await this.findAllUserUseCase.execute();
     return users;
   }
 
