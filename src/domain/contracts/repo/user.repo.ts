@@ -8,7 +8,7 @@ export namespace CreateUser {
     name: string;
     isActive: boolean;
     password: string;
-    documentNo: string;
+    cpf: string;
     birthDate: Date;
   };
   export type Output = User;

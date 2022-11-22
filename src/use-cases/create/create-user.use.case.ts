@@ -30,7 +30,7 @@ export namespace CreateUserUseCase {
           id: user.id,
           name: user.name,
           birthDate: user.birthDate,
-          documentNo: user.documentNo,
+          cpf: user.cpf,
           email: user.email,
           isActive: user.isActive,
         },
@@ -44,7 +44,7 @@ export namespace CreateUserUseCase {
     name: string;
     isActive: boolean;
     password: string;
-    documentNo: string;
+    cpf: string;
     birthDate: Date;
   };
 

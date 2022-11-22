@@ -1,12 +1,13 @@
 import { Entity } from '@/@shared/domain/entity';
 import { UniqueEntityId } from '@/@shared/domain/value-objects';
+import { Cpf } from '@/domain/object-values';
 
 type UserProps = {
   name: string;
   email: string;
   role?: string;
   isActive?: boolean;
-  documentNo: string;
+  cpf: Cpf;
   password?: string;
   birthDate: Date;
 };
@@ -45,8 +46,8 @@ export class User extends Entity<UserProps> {
     return this.props.isActive;
   }
 
-  get documentNo() {
-    return this.props.documentNo;
+  get cpf() {
+    return this.props.cpf;
   }
 
   get birthDate() {

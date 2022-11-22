@@ -16,7 +16,7 @@ export class CreateUserInput {
   password: string;
 
   @Field()
-  documentNo: string;
+  cpf: string;
 
   @Field()
   @IsISO8601({ strict: true, strictSeparator: true })

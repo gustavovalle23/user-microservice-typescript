@@ -4,7 +4,7 @@ describe('Unit Test create user use case', () => {
   const input = {
     name: 'Tester',
     birthDate: new Date(1999, 5, 12),
-    documentNo: '44444444444',
+    cpf: '44444444444',
     email: 'test@gmail.com',
     isActive: true,
   };
@@ -43,7 +43,7 @@ describe('Unit Test create user use case', () => {
         id: expect.any(String),
         name: input.name,
         birthDate: input.birthDate,
-        documentNo: input.documentNo,
+        cpf: input.cpf,
         email: input.email,
         isActive: input.isActive,
       },
