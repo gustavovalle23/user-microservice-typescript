@@ -6,7 +6,7 @@ import {
 } from '@/domain/contracts/repo';
 import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
 import DefaultUseCase from '@/@shared/application/use-case';
-import { User } from '../user.dto';
+import { User } from '@/use-cases/user.dto';
 
 export namespace CreateUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -18,20 +18,23 @@ export namespace CreateUserUseCase {
     ) {}
 
     async execute(createUserInput: Input): Promise<Output> {
-      const { id } = await this.userRepo.createUser(createUserInput);
-      const user = await this.userRepo.findUserById({
+      const { id } = await this.userRepo.create(createUserInput);
+      const user = await this.userRepo.findById({
         userId: id,
       });
 
-      const tokens = await this.jwt.validate({
-        email: createUserInput.email,
-        password: createUserInput.password,
-      });
+      const { accessToken } = this.jwt.createAccessToken({ userId: id });
 
       return {
-        user,
-        accessToken: tokens?.accessToken,
-        refreshToken: tokens?.refreshToken,
+        user: {
+          id: user.id,
+          name: user.name,
+          birthDate: user.birthDate,
+          documentNo: user.documentNo,
+          email: user.email,
+          isActive: user.isActive,
+        },
+        accessToken,
       };
     }
   }
@@ -48,6 +51,5 @@ export namespace CreateUserUseCase {
   type Output = {
     user: User;
     accessToken: string;
-    refreshToken: string;
   };
 }

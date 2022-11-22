@@ -10,7 +10,7 @@ export namespace FindAllUsersUseCase {
       private readonly userRepo: FindAllUsers,
     ) {}
     async execute(): Promise<Output> {
-      const users = await this.userRepo.findAllUsers();
+      const users = await this.userRepo.findAll();
       return {
         users,
       };

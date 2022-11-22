@@ -15,7 +15,7 @@ export namespace CreateUser {
 }
 
 export interface CreateUser {
-  createUser(input: CreateUser.Input): Promise<CreateUser.Output>;
+  create(input: CreateUser.Input): Promise<CreateUser.Output>;
 }
 
 export namespace FindUserById {
@@ -24,7 +24,7 @@ export namespace FindUserById {
 }
 
 export interface FindUserById {
-  findUserById(input: FindUserById.Input): Promise<FindUserById.Output>;
+  findById(input: FindUserById.Input): Promise<FindUserById.Output>;
 }
 
 export namespace FindAllUsers {
@@ -33,5 +33,5 @@ export namespace FindAllUsers {
 }
 
 export interface FindAllUsers {
-  findAllUsers(input: FindAllUsers.Input): Promise<FindAllUsers.Output>;
+  findAll(input: FindAllUsers.Input): Promise<FindAllUsers.Output>;
 }

@@ -1,6 +1,6 @@
 import { CreateUserUseCase } from '@/use-cases/create';
 import { CreateUserInput } from '@/use-cases/create/create-user.input';
-import { CreateUserResponse } from '@/use-cases/create/create-user.response';
+import { CreateUserOutput } from '@/use-cases/create/create-user.output';
 import { FindUserUseCase } from '@/use-cases/find';
 import { FindAllUsersUseCase } from '@/use-cases/list';
 import { User } from '@/use-cases/user.dto';
@@ -29,17 +29,15 @@ export class UserResolver {
     return users;
   }
 
-  @Mutation(() => CreateUserResponse, { nullable: false })
+  @Mutation(() => CreateUserOutput, { nullable: false })
   async createUser(
     @Args('user') input: CreateUserInput,
-  ): Promise<CreateUserResponse> {
-    const { user, accessToken, refreshToken } =
-      await this.createUserUseCase.execute(input);
+  ): Promise<CreateUserOutput> {
+    const { user, accessToken } = await this.createUserUseCase.execute(input);
 
     return {
       user,
       accessToken,
-      refreshToken,
     };
   }
 }
