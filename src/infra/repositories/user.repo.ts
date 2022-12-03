@@ -48,7 +48,7 @@ function toEntity(
   return new User(
     {
       birthDate: user.birthDate,
-      documentNo: user.documentNo,
+      cpf: user.cpf,
       email: user.email,
       isActive: user.isActive,
       name: user.name,

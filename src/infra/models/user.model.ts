@@ -18,7 +18,7 @@ export class User {
   isActive: boolean;
 
   @Prop()
-  documentNo: string;
+  cpf: string;
 
   @Prop()
   password: string;

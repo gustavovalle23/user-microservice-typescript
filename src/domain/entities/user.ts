@@ -7,7 +7,7 @@ type UserProps = {
   email: string;
   role?: string;
   isActive?: boolean;
-  cpf: Cpf;
+  cpf: Cpf | string;
   password?: string;
   birthDate: Date;
 };
