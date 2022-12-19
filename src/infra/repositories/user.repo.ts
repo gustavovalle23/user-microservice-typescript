@@ -1,7 +1,8 @@
 import {
   CreateUser,
-  FindUserById,
   FindAllUsers,
+  FindUserById,
+  UserRepository,
 } from '@/domain/contracts/repo';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -11,7 +12,7 @@ import { User } from '@/domain/entities';
 import { UniqueEntityId } from '@/@shared/domain/value-objects';
 
 Injectable();
-export class UserRepository implements CreateUser, FindUserById, FindAllUsers {
+export class MongooseUserRepository implements UserRepository {
   constructor(
     @InjectModel(UserModel.name)
     private readonly userModel: Model<UserModel>,

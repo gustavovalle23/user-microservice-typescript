@@ -13,6 +13,7 @@ describe('Unit Test create user use case', () => {
     return {
       findById: jest.fn().mockReturnValue({ id: '123', ...input }),
       create: jest.fn().mockReturnValue({ id: '123', ...input }),
+      findAll: jest.fn(),
     };
   };
 

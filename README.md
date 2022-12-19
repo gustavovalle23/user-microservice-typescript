@@ -42,7 +42,7 @@ query FindAllUsers {
     isActive
     name
     email
-    documentNo
+    cpf
     birthDate
   }
 }
@@ -56,7 +56,7 @@ query FindUserById($findUserByIdId: String!) {
       isActive
       name
       email
-      documentNo
+      cpf
       birthDate
     }
   }
@@ -71,7 +71,7 @@ mutation CreateUser($user: CreateUserInput!) {
       isActive
       name
       email
-      documentNo
+      cpf
       birthDate
     }
   }

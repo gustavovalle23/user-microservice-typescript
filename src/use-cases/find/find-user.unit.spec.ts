@@ -4,7 +4,7 @@ describe('Unit Test - Find User Use Case', () => {
   const input = {
     name: 'Tester',
     birthDate: new Date(1999, 5, 12),
-    documentNo: '44444444444',
+    cpf: '44444444444',
     email: 'test@gmail.com',
     isActive: true,
   };
@@ -21,12 +21,15 @@ describe('Unit Test - Find User Use Case', () => {
         },
       }),
       create: jest.fn().mockReturnValue({ id: userId, ...input }),
+      findAll: jest.fn(),
     };
   };
 
   const MockRepositoryNotFound = () => {
     return {
       findById: jest.fn(),
+      create: jest.fn().mockReturnValue({ id: userId, ...input }),
+      findAll: jest.fn(),
     };
   };
 
@@ -38,7 +41,7 @@ describe('Unit Test - Find User Use Case', () => {
     expect(output).toStrictEqual({
       id: userId,
       birthDate: input.birthDate,
-      documentNo: input.documentNo,
+      cpf: input.cpf,
       email: input.email,
       isActive: input.isActive,
       name: input.name,

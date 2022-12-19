@@ -1,11 +1,10 @@
-import { Cpf } from '../object-values';
 import { User } from './user';
 
 describe('User Unit Tests', () => {
   const props = {
     name: 'Test',
     birthDate: new Date(1999, 6, 26),
-    cpf: new Cpf({ number: '', issuingTaxRegion: '', verifyingDigit: '' }),
+    cpf: '44744444444',
     email: 'test@gmail.com',
   };
 

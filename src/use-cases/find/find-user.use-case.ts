@@ -1,14 +1,12 @@
 import { UserNotFoundError } from '@/domain/errors';
 import { Inject } from '@nestjs/common';
-import { FindUserById, USER_REPOSITORY } from '@/domain/contracts/repo';
 import DefaultUseCase from '@/@shared/application/use-case';
+import { Cpf } from '@/domain/object-values';
+import { UserRepository } from '@/domain/contracts/repo';
 
 export namespace FindUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(
-      @Inject(USER_REPOSITORY)
-      private readonly userRepo: FindUserById,
-    ) {}
+    constructor(private readonly userRepo: UserRepository) {}
     async execute({ userId }: Input): Promise<Output> {
       const user = await this.userRepo.findById({
         userId,
@@ -25,7 +23,7 @@ export namespace FindUserUseCase {
   type Output = {
     id: string;
     birthDate: Date;
-    documentNo: string;
+    cpf: string | Cpf;
     email: string;
     isActive: boolean;
     name: string;

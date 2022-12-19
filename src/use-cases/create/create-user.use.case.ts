@@ -1,18 +1,13 @@
 import { Inject } from '@nestjs/common';
-import {
-  CreateUser,
-  FindUserById,
-  USER_REPOSITORY,
-} from '@/domain/contracts/repo';
 import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
 import DefaultUseCase from '@/@shared/application/use-case';
 import { UserOutput } from '@/use-cases/user.output';
+import { UserRepository } from '@/domain/contracts/repo';
 
 export namespace CreateUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(
-      @Inject(USER_REPOSITORY)
-      private readonly userRepo: CreateUser & FindUserById,
+      private readonly userRepo: UserRepository,
       @Inject(JWT_SERVICE)
       private readonly jwt: Jwt,
     ) {}

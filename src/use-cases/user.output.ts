@@ -5,11 +5,7 @@ export type UserOutput = {
   name: string;
   email: string;
   isActive: boolean;
-  cpf: {
-    number: string;
-    issuingTaxRegion: string;
-    verifyingDigit: string;
-  };
+  cpf: string;
   birthDate: Date;
 };
 

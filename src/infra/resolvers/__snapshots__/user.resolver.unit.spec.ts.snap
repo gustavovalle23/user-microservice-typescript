@@ -4,8 +4,8 @@ exports[`Unit Tests - User Resolver Should create a user 1`] = `
 Object {
   "accessToken": "fakeaccesstoken",
   "user": Object {
-    "birthDate": 1999-06-12T03:00:00.000Z,
-    "documentNo": "44444444444",
+    "birthDate": 1999-06-12T00:00:00.000Z,
+    "cpf": "44444444444",
     "email": "test@gmail.com",
     "id": "123",
     "isActive": true,
@@ -16,8 +16,8 @@ Object {
 
 exports[`Unit Tests - User Resolver Should find user by id 1`] = `
 Object {
-  "birthDate": 1999-06-12T03:00:00.000Z,
-  "documentNo": "44444444444",
+  "birthDate": 1999-06-12T00:00:00.000Z,
+  "cpf": "44444444444",
   "email": "test@gmail.com",
   "id": "123",
   "isActive": true,
@@ -26,22 +26,24 @@ Object {
 `;
 
 exports[`Unit Tests - User Resolver Should list all users 1`] = `
-Array [
-  Object {
-    "birthDate": 1999-06-12T03:00:00.000Z,
-    "documentNo": "44444444444",
-    "email": "test@gmail.com",
-    "id": "123",
-    "isActive": true,
-    "name": "Tester",
-  },
-  Object {
-    "birthDate": 1999-06-12T03:00:00.000Z,
-    "documentNo": "44444444444",
-    "email": "test@gmail.com",
-    "id": "456",
-    "isActive": true,
-    "name": "Tester",
-  },
-]
+Object {
+  "users": Array [
+    Object {
+      "birthDate": 1999-06-12T00:00:00.000Z,
+      "cpf": "44444444444",
+      "email": "test@gmail.com",
+      "id": "123",
+      "isActive": true,
+      "name": "Tester",
+    },
+    Object {
+      "birthDate": 1999-06-12T00:00:00.000Z,
+      "cpf": "44444444444",
+      "email": "test@gmail.com",
+      "id": "456",
+      "isActive": true,
+      "name": "Tester",
+    },
+  ],
+}
 `;

@@ -1,13 +1,12 @@
 import { Entity } from '@/@shared/domain/entity';
 import { UniqueEntityId } from '@/@shared/domain/value-objects';
-import { Cpf } from '@/domain/object-values';
 
 type UserProps = {
   name: string;
   email: string;
   role?: string;
   isActive?: boolean;
-  cpf: Cpf | string;
+  cpf: string;
   password?: string;
   birthDate: Date;
 };

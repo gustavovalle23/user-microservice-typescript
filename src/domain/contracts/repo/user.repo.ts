@@ -1,6 +1,10 @@
 import { User } from '@/domain/entities';
 
-export const USER_REPOSITORY = 'UserRepo';
+export abstract class UserRepository {
+  abstract create(input: CreateUser.Input): Promise<CreateUser.Output>;
+  abstract findById(input: FindUserById.Input): Promise<FindUserById.Output>;
+  abstract findAll(input: FindAllUsers.Input): Promise<FindAllUsers.Output>;
+}
 
 export namespace CreateUser {
   export type Input = {
@@ -14,24 +18,12 @@ export namespace CreateUser {
   export type Output = User;
 }
 
-export interface CreateUser {
-  create(input: CreateUser.Input): Promise<CreateUser.Output>;
-}
-
 export namespace FindUserById {
   export type Input = { userId: string };
   export type Output = User;
 }
 
-export interface FindUserById {
-  findById(input: FindUserById.Input): Promise<FindUserById.Output>;
-}
-
 export namespace FindAllUsers {
   export type Input = void;
   export type Output = User[];
-}
-
-export interface FindAllUsers {
-  findAll(input: FindAllUsers.Input): Promise<FindAllUsers.Output>;
 }
