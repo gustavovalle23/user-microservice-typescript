@@ -1,0 +1,24 @@
+@startuml Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component Diagram for Churros System - Delivery Restaurant Franchise
+
+Container(userMicroservice, "User MicroService", "Fastapi/Python", "Handles all business logic of users operations", $tags="v0.1")
+Container(restaurantMicroservice, "Restaurant MicroService", "Fastapi/Python", "Handles all business logic of restaurants operations", $tags="v0.1")
+Container(productMicroservice, "Product MicroService", "Fastapi/Python", "Handles all business logic of products operations", $tags="v0.1")
+
+Container(apiGateway, "Api Gateway", "Apollo Federation", "Handles all requests and reverse proxy to various services and microservices", $tags="v0.1")
+
+ContainerDb(dbUserMicroservice, "User Database Microservice", "MongoDB", "Holds user data")
+ContainerDb(dbRestaurantMicroservice, "Restaurant Database Microservice", "MongoDB", "Holds restaurant data")
+ContainerDb(dbProductMicroservice, "Product Database Microservice", "MongoDB", "Holds product data")
+
+Rel(apiGateway, userMicroservice, "Uses", "GraphQL")
+Rel(apiGateway, restaurantMicroservice, "Uses", "GraphQL")
+Rel(apiGateway, productMicroservice, "Uses", "GraphQL")
+
+Rel(userMicroservice, dbUserMicroservice, "Reads/Writes")
+Rel(restaurantMicroservice, dbRestaurantMicroservice, "Reads/Writes")
+Rel(productMicroservice, dbProductMicroservice, "Reads/Writes")
+
+@enduml
