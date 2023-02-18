@@ -24,8 +24,7 @@ export class UserResolver {
 
   @Query(() => [User], { nullable: false })
   async allUsers(): Promise<User[]> {
-    const users = await this.findAllUserUseCase.execute();
-    return users;
+    return this.findAllUserUseCase.execute();
   }
 
   @Mutation(() => CreateUserOutput, { nullable: false })

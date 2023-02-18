@@ -23,7 +23,7 @@ export namespace FindUserUseCase {
   type Output = {
     id: string;
     birthDate: Date;
-    cpf: string | Cpf;
+    cpf: string;
     email: string;
     isActive: boolean;
     name: string;
