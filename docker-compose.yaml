@@ -1,17 +1,17 @@
 version: '3.5'
 
 services:
-  app:
-    hostname: 'app-user-microservice'
-    container_name: 'app-user-microservice'
+  user:
+    hostname: 'user'
+    container_name: 'user'
     ports:
       - "4000:4000"
       - "9229:9229"
     volumes:
-      - .:/app
+      - ./user:/app
     build:
       dockerfile: Dockerfile
-      context: .
+      context: user
     networks:
       - local-network
     env_file:
