@@ -6,7 +6,6 @@ services:
     container_name: 'user'
     ports:
       - "4000:4000"
-      - "9229:9229"
     volumes:
       - ./user:/app
     build:
@@ -18,6 +17,24 @@ services:
       - .env
     extra_hosts:
       - 'host.docker.internal:172.17.0.1'
+
+  product:
+    hostname: 'product'
+    container_name: 'product'
+    ports:
+      - "4001:4000"
+    volumes:
+      - ./product:/app
+    build:
+      dockerfile: Dockerfile
+      context: product
+    networks:
+      - local-network
+    env_file:
+      - .env
+    extra_hosts:
+      - 'host.docker.internal:172.17.0.1'
+
   mongo:
     ports:
       - "27047:27017"
@@ -31,6 +48,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: test
     networks:
       - local-network
+
 networks:
   local-network:
     name: network-user-microservice

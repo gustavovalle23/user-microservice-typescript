@@ -3,16 +3,23 @@ version: '3'
 dotenv: ['.env', '.env.test']
 
 vars:
-  LOCAL_SERVICES: "user mongo"
+  LOCAL_SERVICES: "user product mongo"
   COMPOSE_FILE: "COMPOSE_FILE=docker-compose.yml"
   BUILD_CMD: "docker-compose build --no-cache"
   RUN_CMD: "docker-compose up -d {{.LOCAL_SERVICES}}"
   STOP_CMD: "docker-compose down -v"
+  # USER
   TEST_CMD_USER: "docker-compose exec -T user yarn test:e2e"
   BASH_CMD_USER: "docker exec -it user sh"
   INSTALL_DEPENDENCIES_CMD_USER: "docker-compose run user yarn install --ignore-scripts"
-  LOGS_CMD: "docker-compose logs -f --tail=500"
   LOGS_APP_CMD_USER: "docker-compose logs -f --tail=500 user"
+  # PRODUCT
+  TEST_CMD_PRODUCT: "docker-compose exec -T product yarn test:e2e"
+  BASH_CMD_PRODUCT: "docker exec -it product sh"
+  INSTALL_DEPENDENCIES_CMD_PRODUCT: "docker-compose run product yarn install --ignore-scripts"
+  LOGS_APP_CMD_PRODUCT: "docker-compose logs -f --tail=500 product"
+
+  LOGS_CMD: "docker-compose logs -f --tail=500"
 
 tasks:
   default:
@@ -35,12 +42,15 @@ tasks:
     cmds:
       - '{{.BUILD_CMD}}'
 
-  install:
-    desc: Install dependencies
+  install:user:
+    desc: Install user dependencies
     cmds:
-      - task: stop
-      - task: build
-      - '{{.INSTALL_DEPENDENCIES_CMD}}'
+      - '{{.INSTALL_DEPENDENCIES_CMD_USER}}'
+
+  install:product:
+    desc: Install product dependencies
+    cmds:
+      - '{{.INSTALL_DEPENDENCIES_CMD_PRODUCT}}'
 
   stop:
     desc: Stop env
@@ -60,10 +70,16 @@ tasks:
       - task: run
       - '{{.TEST_CMD}}'
       - task: stop
+
   user:
     desc: Enter user bash
     cmds:
-      - '{{.BASH_CMD_USER}}'  
+      - '{{.BASH_CMD_USER}}'
+
+  product:
+    desc: Enter user bash
+    cmds:
+      - '{{.BASH_CMD_PRODUCT}}'
 
   logs:
     desc: Docker logs
@@ -74,3 +90,9 @@ tasks:
     desc: Docker user logs
     cmds:
       - '{{.LOGS_APP_CMD_USER}}'  
+
+
+  logs:product:
+    desc: Docker product logs
+    cmds:
+      - '{{.LOGS_APP_CMD_PRODUCT}}'
