@@ -8,6 +8,7 @@ services:
       - "4000:4000"
     volumes:
       - ./user:/app
+      - ~/.bash_history:/root/.bash_history
     build:
       dockerfile: Dockerfile
       context: user
@@ -25,6 +26,7 @@ services:
       - "4001:4000"
     volumes:
       - ./product:/app
+      - ~/.bash_history:/root/.bash_history
     build:
       dockerfile: Dockerfile
       context: product

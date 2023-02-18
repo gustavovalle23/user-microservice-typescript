@@ -1,7 +1,5 @@
 import { UserNotFoundError } from '@/domain/errors';
-import { Inject } from '@nestjs/common';
 import DefaultUseCase from '@/@shared/application/use-case';
-import { Cpf } from '@/domain/object-values';
 import { UserRepository } from '@/domain/contracts/repo';
 
 export namespace FindUserUseCase {
