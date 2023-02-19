@@ -23,7 +23,7 @@ services:
     hostname: 'product'
     container_name: 'product'
     ports:
-      - "4001:4000"
+      - "4001:4001"
     volumes:
       - ./product:/app
       - ~/.bash_history:/root/.bash_history
@@ -42,8 +42,8 @@ services:
       - "27047:27017"
     volumes:
       - 'mongodb-volume:/data/db'
-    hostname: 'mongo-user-microservice'
-    container_name: 'mongo-user-microservice'
+    hostname: 'mongo'
+    container_name: 'mongo'
     image: 'mongo:4.2.3'
     environment:
       MONGO_INITDB_ROOT_USERNAME: test
@@ -53,7 +53,7 @@ services:
 
 networks:
   local-network:
-    name: network-user-microservice
+    name: network
 volumes:
   mongodb-volume:
     driver: local
