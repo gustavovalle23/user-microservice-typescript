@@ -10,6 +10,7 @@ import { FindUserUseCase } from '@/use-cases/find';
 import { FindAllUsersUseCase } from '@/use-cases/list';
 import { CreateUserUseCase } from '@/use-cases/create';
 import { UserRepository } from '@/domain/contracts/repo';
+import { UserService } from '../controller';
 
 @Module({
   imports: [
@@ -20,7 +21,9 @@ import { UserRepository } from '@/domain/contracts/repo';
       },
     ]),
   ],
+  controllers: [UserService],
   providers: [
+    UserService,
     UserResolver,
     FindUserUseCase.UseCase,
     FindAllUsersUseCase.UseCase,

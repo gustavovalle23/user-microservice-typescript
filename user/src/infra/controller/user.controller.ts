@@ -1,16 +1,24 @@
-import { Metadata, ServerUnaryCall } from '@grpc/grpc-js';
+import { Metadata } from '@grpc/grpc-js';
 import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
-import { User } from '../resolvers/user';
 import { UserById } from './user.dto';
 
+interface User {
+  name: string;
+  email: string;
+  role?: string;
+  isActive: boolean;
+  cpf: string;
+  password?: string;
+  birthDate: Date;
+}
+
 @Controller()
-export class UserController {
-  @GrpcMethod('UserService', 'FindOne')
+export class UserService {
+  @GrpcMethod()
   findOne(
     data: UserById,
     metadata: Metadata,
-    call: ServerUnaryCall<any, any>,
   ): User {
     return {
       name: 'Gus With Id: ' + data.id,

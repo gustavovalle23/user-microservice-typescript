@@ -1,19 +1,18 @@
 import { Controller, Get, Inject, OnModuleInit } from '@nestjs/common';
-import { ClientGrpc } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { User, UserService } from './user';
+import { Client, ClientGrpc } from '@nestjs/microservices';
+import { grpcClientOptions } from './client';
 
 @Controller()
 export class AppController implements OnModuleInit {
+  @Client(grpcClientOptions)
+  private readonly client1: ClientGrpc;
+
   private userService: UserService;
 
-  constructor(
-    @Inject('USER_PACKAGE')
-    private readonly client: ClientGrpc,
-  ) {}
-
   onModuleInit() {
-    this.userService = this.client.getService<UserService>('UserService');
+    this.userService = this.client1.getService<UserService>('UserService');
   }
 
   @Get()
