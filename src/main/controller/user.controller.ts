@@ -16,10 +16,7 @@ interface User {
 @Controller()
 export class UserService {
   @GrpcMethod()
-  findOne(
-    data: UserById,
-    metadata: Metadata,
-  ): User {
+  findOne(data: UserById, metadata: Metadata): User {
     return {
       name: 'Gus With Id: ' + data.id,
       cpf: '44444444',
