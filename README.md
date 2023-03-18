@@ -2,7 +2,7 @@
 > This is a microservice that represents the users of the application
 
 ## Features and Technologies
-> This project uses Node.js v16.17.1, NestJS (with Express), Mongoose, MongoDB and GraphQL
+> This project uses Node.js v18.14.0, NestJS (with Express), Mongoose, MongoDB and GraphQL
 
 - [x] Create user
 - [x] Read/Find all users registered
