@@ -2,41 +2,22 @@ version: '3.5'
 
 services:
   user:
-    hostname: 'user'
-    container_name: 'user'
+    hostname: 'user-microservice'
+    container_name: 'user-microservice'
     ports:
       - "4000:4000"
     volumes:
-      - ./user:/app
+      - ./:/app
       - ~/.bash_history:/root/.bash_history
     build:
       dockerfile: Dockerfile
-      context: user
+      context: .
     networks:
       - local-network
     env_file:
       - .env
     extra_hosts:
       - 'host.docker.internal:172.17.0.1'
-
-  product:
-    hostname: 'product'
-    container_name: 'product'
-    ports:
-      - "4001:4001"
-    volumes:
-      - ./product:/app
-      - ~/.bash_history:/root/.bash_history
-    build:
-      dockerfile: Dockerfile
-      context: product
-    networks:
-      - local-network
-    env_file:
-      - .env
-    extra_hosts:
-      - 'host.docker.internal:172.17.0.1'
-
   mongo:
     ports:
       - "27047:27017"

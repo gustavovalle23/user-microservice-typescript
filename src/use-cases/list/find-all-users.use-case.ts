@@ -1,12 +1,13 @@
-import DefaultUseCase from '@/@shared/application/use-case';
-import { UserOutput } from '../user.output';
+import { UserOutput, UserOutputMapper } from '@/use-cases/dto';
 import { UserRepository } from '@/domain/contracts/repo';
+import DefaultUseCase from '@/@seedwork/src/application/use-case';
 
 export namespace FindAllUsersUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly userRepo: UserRepository) {}
+    constructor(private readonly userRepository: UserRepository) {}
     async execute(): Promise<Output> {
-      return this.userRepo.findAll();
+      const users = await this.userRepository.findAll();
+      return users.map((user) => UserOutputMapper.toOutput(user));
     }
   }
 

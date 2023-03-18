@@ -2,10 +2,10 @@ import { User } from '@/domain/entities';
 
 export type UserOutput = {
   id: string;
+  cpf: string;
   name: string;
   email: string;
   isActive: boolean;
-  cpf: string;
   birthDate: Date;
 };
 

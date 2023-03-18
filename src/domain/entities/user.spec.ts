@@ -9,7 +9,7 @@ describe('User Unit Tests', () => {
   };
 
   it('Should constructor of user', () => {
-    const user = new User({ ...props });
+    const user = new User({ ...props }).toJSON();
 
     expect(user.birthDate).toBeInstanceOf(Date);
     expect(user.birthDate).toStrictEqual(props.birthDate);
@@ -22,8 +22,7 @@ describe('User Unit Tests', () => {
 
   it('Should return an error when pass an invalid email', async () => {
     const user = () => {
-      const user = new User({ ...props, email: '', isActive: true });
-      return user;
+      return new User({ ...props, email: '', isActive: true });
     };
     expect(user).toThrow(Error);
     expect(user).toThrow('Invalid e-mail format!');

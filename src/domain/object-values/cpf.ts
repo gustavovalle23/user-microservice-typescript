@@ -1,4 +1,4 @@
-import { ValueObject } from '@/@shared/domain/value-objects';
+import { ValueObject } from '@/@seedwork/src/domain/value-objects';
 
 type CpfProps = {
   number: string;

@@ -1,5 +1,5 @@
-import { Entity } from '@/@shared/domain/entity';
-import { UniqueEntityId } from '@/@shared/domain/value-objects';
+import { Entity } from '@/@seedwork/src/domain/entity';
+import { UniqueEntityId } from '@/@seedwork/src/domain/value-objects';
 
 type UserProps = {
   name: string;
@@ -27,29 +27,5 @@ export class User extends Entity<UserProps> {
       );
 
     if (!Boolean(validEmail)) throw new Error('Invalid e-mail format!');
-  }
-
-  get id() {
-    return this.uniqueEntityId.value;
-  }
-
-  get name() {
-    return this.props.name;
-  }
-
-  get email() {
-    return this.props.email;
-  }
-
-  get isActive() {
-    return this.props.isActive;
-  }
-
-  get cpf() {
-    return this.props.cpf;
-  }
-
-  get birthDate() {
-    return this.props.birthDate;
   }
 }

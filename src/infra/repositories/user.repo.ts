@@ -9,7 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Document, Model, Schema } from 'mongoose';
 import { User as UserModel } from '@/infra/repositories/models';
 import { User } from '@/domain/entities';
-import { UniqueEntityId } from '@/@shared/domain/value-objects';
+import { UniqueEntityId } from '@/@seedwork/src/domain/value-objects';
 
 Injectable();
 export class MongooseUserRepository implements UserRepository {

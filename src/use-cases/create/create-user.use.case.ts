@@ -1,8 +1,8 @@
 import { Inject } from '@nestjs/common';
 import { Jwt, JWT_SERVICE } from '@/domain/contracts/gateways';
-import DefaultUseCase from '@/@shared/application/use-case';
-import { UserOutput } from '@/use-cases/user.output';
 import { UserRepository } from '@/domain/contracts/repo';
+import DefaultUseCase from '@/@seedwork/src/application/use-case';
+import { UserOutput, UserOutputMapper } from '../dto';
 
 export namespace CreateUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -21,14 +21,7 @@ export namespace CreateUserUseCase {
       const { accessToken } = this.jwt.createAccessToken({ userId: id });
 
       return {
-        user: {
-          id: user.id,
-          name: user.name,
-          birthDate: user.birthDate,
-          cpf: user.cpf,
-          email: user.email,
-          isActive: user.isActive,
-        },
+        user: UserOutputMapper.toOutput(user),
         accessToken,
       };
     }

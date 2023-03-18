@@ -1,6 +1,6 @@
 import { UserNotFoundError } from '@/domain/errors';
-import DefaultUseCase from '@/@shared/application/use-case';
 import { UserRepository } from '@/domain/contracts/repo';
+import DefaultUseCase from '@/@seedwork/src/application/use-case';
 
 export namespace FindUserUseCase {
   export class UseCase implements DefaultUseCase<Input, Output> {
