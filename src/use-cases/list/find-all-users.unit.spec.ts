@@ -21,14 +21,18 @@ describe('Unit Test - Find User Use Case', () => {
 
   const users = [
     {
-      ...user1,
+      toJSON: () => {
+        return { ...user1 };
+      },
     },
     {
-      ...user2,
+      toJSON: () => {
+        return { ...user2 };
+      },
     },
   ];
 
-  const MockRepository = () => {
+  const mockRepository = () => {
     return {
       findAll: jest.fn().mockReturnValue(users),
       findById: jest.fn(),
@@ -37,7 +41,7 @@ describe('Unit Test - Find User Use Case', () => {
   };
 
   it('Should list all users', async () => {
-    const repository = MockRepository();
+    const repository = mockRepository();
     const useCase = new FindAllUsersUseCase.UseCase(repository);
     const output = await useCase.execute();
     expect(output).toStrictEqual([user1, user2]);

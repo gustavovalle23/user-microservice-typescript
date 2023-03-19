@@ -1,4 +1,4 @@
-import { UserOutput } from '../user.output';
+import { UserOutput } from '../dto';
 
 export type CreateUserOutput = {
   user: UserOutput;

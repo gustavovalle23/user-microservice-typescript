@@ -11,7 +11,11 @@ describe('Unit Test create user use case', () => {
 
   const mockRepository = () => {
     return {
-      findById: jest.fn().mockReturnValue({ id: '123', ...input }),
+      findById: jest.fn().mockReturnValue({
+        toJSON: () => {
+          return { id: '123', ...input };
+        },
+      }),
       create: jest.fn().mockReturnValue({ id: '123', ...input }),
       findAll: jest.fn(),
     };
@@ -25,7 +29,7 @@ describe('Unit Test create user use case', () => {
     };
   };
 
-  it.only('Should create an user', async () => {
+  it('Should create an user', async () => {
     const userRepository = mockRepository();
     const jwtGateway = mockJwt();
 
