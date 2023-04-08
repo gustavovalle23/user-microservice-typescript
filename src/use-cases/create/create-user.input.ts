@@ -1,24 +1,8 @@
-import { Field, InputType } from '@nestjs/graphql';
-import { IsISO8601 } from 'class-validator';
-
-@InputType()
-export class CreateUserInput {
-  @Field()
+export type CreateUserInput = {
   email: string;
-
-  @Field()
   name: string;
-
-  @Field()
   isActive: boolean;
-
-  @Field()
   password: string;
-
-  @Field()
   cpf: string;
-
-  @Field()
-  @IsISO8601({ strict: true, strictSeparator: true })
   birthDate: Date;
-}
+};

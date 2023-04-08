@@ -32,8 +32,11 @@ export class MongooseUserRepository implements UserRepository {
     return user ? toEntity(user) : null;
   }
 
-  async findAll(): Promise<FindAllUsers.Output> {
-    const users = await this.userModel.find().exec();
+  async findAll({
+    limit,
+    offset,
+  }: FindAllUsers.Input): Promise<FindAllUsers.Output> {
+    const users = await this.userModel.find().skip(offset).limit(limit).exec();
     return users.map(toEntity);
   }
 }

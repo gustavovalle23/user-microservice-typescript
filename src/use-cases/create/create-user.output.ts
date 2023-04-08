@@ -1,6 +1,11 @@
-import { UserOutput } from '../user.output';
-
 export type CreateUserOutput = {
-  user: UserOutput;
+  user: {
+    id: string;
+    cpf: string;
+    name: string;
+    email: string;
+    isActive: boolean;
+    birthDate: Date;
+  };
   accessToken: string;
 };

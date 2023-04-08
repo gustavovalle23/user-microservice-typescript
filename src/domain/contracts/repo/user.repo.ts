@@ -24,6 +24,6 @@ export namespace FindUserById {
 }
 
 export namespace FindAllUsers {
-  export type Input = void;
+  export type Input = { limit: number; offset: number };
   export type Output = User[];
 }
