@@ -1,34 +1,40 @@
-version: '3'
+version: '3.5'
 
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - NODE_ENV=development
-    environment:
-      - PORT=3000
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PW=crudjs
-      - DB_NAME=postgres
+  user:
+    hostname: 'user-microservice'
+    container_name: 'user-microservice'
     ports:
-      - 3000:3000
-    depends_on:
-      - postgres
-    links:
-      - postgres:postgres
+      - "4000:4000"
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    command: yarn start:dev
-
-  postgres:
-    image: postgres:alpine
-    restart: always
+      - ./:/app
+      - ~/.bash_history:/root/.bash_history
+    build:
+      dockerfile: Dockerfile
+      context: .
+    networks:
+      - local-network
+    env_file:
+      - .env
+    extra_hosts:
+      - 'host.docker.internal:172.17.0.1'
+  mongo:
+    ports:
+      - "27047:27017"
+    volumes:
+      - 'mongodb-volume:/data/db'
+    hostname: 'mongo'
+    container_name: 'mongo'
+    image: 'mongo:4.2.3'
     environment:
-      - DB_USER=postgres
-      - DB_PASS=crudjs
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: test
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    name: network
+volumes:
+  mongodb-volume:
+    driver: local

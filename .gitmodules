@@ -1,0 +1,3 @@
+[submodule "src/@seedwork"]
+	path = src/@seedwork
+	url = https://github.com/gustavovalle23/seedwork-clean-arch

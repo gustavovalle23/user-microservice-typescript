@@ -8,7 +8,7 @@ type AllUsersResponse {
 
 input CreateUserInput {
   birthDate: DateTime!
-  documentNo: String!
+  cpf: String!
   email: String!
   isActive: Boolean!
   name: String!
@@ -43,7 +43,7 @@ type Query {
 
 type User {
   birthDate: DateTime!
-  documentNo: String!
+  cpf: String!
   email: String!
   id: String!
   isActive: Boolean

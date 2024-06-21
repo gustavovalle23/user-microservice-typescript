@@ -2,52 +2,78 @@
 > This is a microservice that represents the users of the application
 
 ## Features and Technologies
-> This project uses Node.js v18.5.0, NestJS (with Express), TypeORM, PostgreSQL and GraphQL
+> This project uses Node.js v18.14.0, NestJS (with Express), Mongoose, MongoDB and GraphQL
 
-* Find all users registered
-* Find all user by id
+- [x] Create user
+- [x] Read/Find all users registered
+- [x] Read/Find all user by id
+- [ ] Update user
+- [ ] Delete user
+- [x] Use docker and docker-compose
+- [x] Configure MongoDB
+- [x] Use task file
 
 ## Build Setup Docker
 ```console
-user@project:~$ docker-compose build --no-cache && docker-compose up
+user@project:~$ task
 ```
 
-## Build Setup Local
+## Stop Docker
+```console
+user@project:~$ task stop
 ```
-# install dependencies
-yarn install
 
-# start the server (GraphiQL is started at http://127.0.0.1:3000)
-yarn start
+
+## enter n container server (GraphiQL is started at http://127.0.0.1:4000/graphql)
+task app
 
 # run tests
-yarn test
+```console
+user@project:~$ yarn test:e2e
+user@project:~$ yarn test:cov
 ```
 
 ## Query Examples
 
-```js
-query {
+```graphql
+query FindAllUsers {
   allUsers {
     id
     isActive
     name
     email
-    documentNo
+    cpf
     birthDate
   }
 }
 ```
 
-```js
-query($userId: String!) {
-  user(userId: $userId) {
-    birthDate
-    documentNo
-    email
-    id
-    name
-    isActive
+```graphql
+query FindUserById($findUserByIdId: String!) {
+  findUserById(id: $findUserByIdId) {
+    user {
+      id
+      isActive
+      name
+      email
+      cpf
+      birthDate
+    }
+  }
+}
+```
+
+```graphql
+mutation CreateUser($user: CreateUserInput!) {
+  createUser(user: $user) {
+    user {
+      id
+      isActive
+      name
+      email
+      cpf
+      birthDate
+    }
   }
 }
 ```
